@@ -50,7 +50,7 @@ const hobbies = [
 
 const Hobbies = () => {
     return (
-        <section id="hobbies" className="section">
+        <section id="hobbies" className="section !px-0 md:!px-8">
             <div className="w-full max-w-6xl px-0 md:px-4">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
