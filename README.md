@@ -49,7 +49,7 @@ I'm always open to interesting conversations and collaboration opportunities.
 Want to see the code in action?
 
 ```bash
-git clone https://github.com/sayanthegamer/portfolio.git
+git clone https://github.com/Sayanthegamer/Sayanthegamer.git
 cd portfolio
 npm install
 npm run dev
