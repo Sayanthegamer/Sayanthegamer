@@ -30,8 +30,8 @@ I love working with modern technologies to build fast, scalable, and beautiful a
 ## 📈 Stats & Activity
 
 *   **Focus:** Building accessible and performant web apps.
-*   **Learning:** Currently exploring advanced 3D web graphics.
-*   **Hobbies:** When I'm not coding, I'm likely [mention a hobby from Hobbies.tsx, e.g., gaming or reading].
+*   **Learning:** Currently exploring advanced web graphics and AI.
+*   **Hobbies:** When I'm not coding, I'm likely studying or playing video games.
 
 ---
 
@@ -39,9 +39,8 @@ I love working with modern technologies to build fast, scalable, and beautiful a
 
 I'm always open to interesting conversations and collaboration opportunities.
 
-*   **LinkedIn**: [Your LinkedIn Profile]
-*   **Email**: [Your Email Address]
-*   **Portfolio**: [Link to Live Site]
+*   **Email**: sayanbnk2008@gmail.com
+*   **Portfolio**: 
 
 ---
 
@@ -50,7 +49,7 @@ I'm always open to interesting conversations and collaboration opportunities.
 Want to see the code in action?
 
 ```bash
-git clone https://github.com/yourusername/portfolio.git
+git clone https://github.com/sayanthegamer/portfolio.git
 cd portfolio
 npm install
 npm run dev
