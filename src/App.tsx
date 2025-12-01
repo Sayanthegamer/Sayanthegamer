@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Background from './components/Background';
 
 import { AchievementProvider } from './context/AchievementContext';
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         </main>
 
         <Footer />
+        <Analytics />
       </div>
     </AchievementProvider>
   );
