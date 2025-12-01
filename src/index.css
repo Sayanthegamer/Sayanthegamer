@@ -21,6 +21,8 @@
 
   --primary: #38bdf8;
   --secondary: #94a3b8;
+  --bg-card: rgba(15, 23, 42, 0.6);
+  --border: rgba(148, 163, 184, 0.1);
 }
 
 
