@@ -21,7 +21,7 @@ const projects = [
             'Academic Performance Analysis',
             'Data Export & Report Generation'
         ],
-        tech: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS'],
+        tech: ['React', 'Node.js', 'LocalStorage', 'Tailwind CSS'],
         github: 'https://github.com/Sayanthegamer/Student-Management-System',
         demo: 'https://student-management-nine-tawny.vercel.app/',
         image: '/student-manager-preview.png',
