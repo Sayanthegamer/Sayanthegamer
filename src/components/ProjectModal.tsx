@@ -45,7 +45,7 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
                         {/* Close Button */}
                         <button
                             onClick={onClose}
-                            className="absolute top-4 right-4 p-2 rounded-full bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors z-10"
+                            className="absolute top-4 right-4 p-2 rounded-full bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors z-50"
                         >
                             <X size={20} />
                         </button>
