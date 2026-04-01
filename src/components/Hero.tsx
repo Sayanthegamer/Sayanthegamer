@@ -51,7 +51,7 @@ const Hero = () => {
         transition={{ delay: 2, duration: 1 }}
         className="absolute bottom-12 left-1/2 -translate-x-1/2"
       >
-        <div className="animate-bounce text-slate-500">
+        <div className="animate-bounce text-slate-500" aria-hidden="true">
           <ArrowDown size={24} />
         </div>
       </motion.div>

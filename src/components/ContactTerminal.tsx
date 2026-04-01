@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal } from 'lucide-react';
-import { useAchievements } from '../context/AchievementContext';
+import { useAchievementStore } from '../store/useAchievementStore';
 
 const commands = {
     help: 'Available commands: email, github, instagram, whoami, clear',
@@ -15,7 +15,8 @@ const commands = {
 
 const ContactTerminal = () => {
     const [input, setInput] = useState('');
-    const { unlockAchievement, resetAchievements } = useAchievements();
+    const unlockAchievement = useAchievementStore((state) => state.unlockAchievement);
+    const resetAchievements = useAchievementStore((state) => state.resetAchievements);
     const [history, setHistory] = useState<{ type: 'input' | 'output'; content: string }[]>([
         { type: 'output', content: 'Welcome to Sayan\'s Terminal v1.0.0' },
         { type: 'output', content: 'Type "help" to see available commands.' },
@@ -49,7 +50,7 @@ const ContactTerminal = () => {
             const output = commands[trimmedCmd as keyof typeof commands];
             if (trimmedCmd === 'email' || trimmedCmd === 'github' || trimmedCmd === 'instagram') {
                 newHistory.push({ type: 'output', content: `Opening ${trimmedCmd}...` });
-                window.open(output, '_blank');
+                window.open(output, '_blank', 'noopener,noreferrer');
             } else {
                 newHistory.push({ type: 'output', content: output });
             }
@@ -73,6 +74,7 @@ const ContactTerminal = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
+                    onViewportEnter={() => inputRef.current?.focus()}
                     className="rounded-xl overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl font-mono text-sm md:text-base"
                 >
                     {/* Terminal Header */}
@@ -116,6 +118,7 @@ const ContactTerminal = () => {
                             <input
                                 ref={inputRef}
                                 type="text"
+                                aria-label="Terminal command input"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 className="flex-1 bg-transparent border-none outline-none text-base md:text-sm text-slate-100 placeholder-slate-600"
@@ -126,7 +129,7 @@ const ContactTerminal = () => {
                 </motion.div>
 
                 <p className="text-center text-slate-500 text-sm mt-8">
-                    Prefer standard contact? <a href="mailto:sayanthegamer@gmail.com" className="text-sky-400 hover:underline">Email me directly</a>
+                    Prefer standard contact? <a href="mailto:sayanbnk2008@gmail.com" className="text-sky-400 hover:underline">Email me directly</a>
                 </p>
             </div>
         </section>

@@ -1,19 +1,12 @@
 import { motion } from 'framer-motion';
 import { Trophy, X } from 'lucide-react';
+import { useAchievementStore } from '../store/useAchievementStore';
 
-interface Achievement {
-    title: string;
-    description: string;
-    icon: string;
-}
+const AchievementToast = () => {
+    const currentToast = useAchievementStore((state) => state.currentToast);
+    const clearToast = useAchievementStore((state) => state.clearToast);
 
-interface AchievementToastProps {
-    achievement: Achievement | null;
-    onClose: () => void;
-}
-
-const AchievementToast = ({ achievement, onClose }: AchievementToastProps) => {
-    if (!achievement) return null;
+    if (!currentToast) return null;
 
     return (
         <motion.div
@@ -22,7 +15,7 @@ const AchievementToast = ({ achievement, onClose }: AchievementToastProps) => {
             className="fixed bottom-8 left-1/2 z-[100] flex items-center gap-4 bg-slate-900/90 backdrop-blur-md border border-amber-500/30 px-6 py-4 rounded-full shadow-[0_0_30px_rgba(245,158,11,0.2)]"
         >
             <div className="flex items-center justify-center w-10 h-10 rounded-full bg-amber-500/20 text-2xl">
-                {achievement.icon}
+                {currentToast.icon}
             </div>
 
             <div className="flex flex-col">
@@ -31,15 +24,15 @@ const AchievementToast = ({ achievement, onClose }: AchievementToastProps) => {
                     Achievement Unlocked
                 </span>
                 <span className="text-slate-100 font-bold text-sm">
-                    {achievement.title}
+                    {currentToast.title}
                 </span>
                 <span className="text-slate-400 text-xs">
-                    {achievement.description}
+                    {currentToast.description}
                 </span>
             </div>
 
             <button
-                onClick={onClose}
+                onClick={clearToast}
                 className="ml-2 p-1 rounded-full hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition-colors"
             >
                 <X size={16} />

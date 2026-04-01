@@ -3,23 +3,24 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
 import ProjectModal from './ProjectModal';
-import { useAchievements } from '../context/AchievementContext';
+import { useAchievementStore } from '../store/useAchievementStore';
 
 const projects = [
     {
         title: 'Kron0',
         description: 'A modern, neo-glassmorphism inspired productivity companion designed for students.',
-        longDescription: 'Kron0 is a modern, neo-glassmorphism inspired productivity companion designed for students. It combines a powerful focus timer, a smart weekly schedule managed via Drag & Drop or simple clicks, and detailed productivity insights—all in a beautifully animated interface.',
+        longDescription: 'Kron0 combines a powerful focus timer, a smart weekly schedule managed via Drag & Drop or simple clicks, and detailed productivity insights—all in a beautifully animated interface.',
         challenges: [
-            'Firebase API calling',
-            'Optimising performance',
-            'Designing the whole thing'
+            'Building a highly responsive drag-and-drop weekly schedule.',
+            'Implementing real-time Firebase syncing across devices.',
+            'Designing a cohesive dark, neo-glassmorphism UI.'
         ],
         features: [
-            'Focus Timer',
-            'Smart Schedule',
-            'Productivity Stats',
-            'Task Management'
+            'Configurable Focus Timer (Pomodoro)',
+            'Smart Drag & Drop Schedule',
+            'Detailed Productivity Stats',
+            'Cross-device Firebase Sync',
+            'Installable PWA Ready'
         ],
         tech: ['React', 'TypeScript', 'Firebase', 'Tailwind CSS', 'Framer Motion', 'Vite'],
         github: 'https://github.com/Sayanthegamer/kron0',
@@ -28,60 +29,61 @@ const projects = [
     },
     {
         title: 'Student Manager Pro',
-        description: 'A comprehensive educational platform for managing student records, fees, and academic performance.',
-        longDescription: 'Student Manager Pro is a robust administrative tool designed for educational institutions. It streamlines the complex process of student data management, from admission to graduation. The system provides intuitive dashboards for tracking attendance, managing fee payments, and generating detailed academic reports.',
+        description: 'The simple, modern way to manage your school\'s student records, fees, and admissions.',
+        longDescription: 'Student Manager Pro helps school administrators, principals, and office staff manage student information, track fee payments, process admissions, and issue transfer certificates — all from a browser. Features a premium dual-layer storage system with a local clipboard (sessionStorage) for instant updates and a cloud filing cabinet (Supabase) for secure permanent routing.',
         challenges: [
-            'Designing a complex database schema to handle relationships between students, classes, and fee structures.',
-            'Implementing a secure authentication system to protect sensitive student data.',
-            'Creating a responsive UI that handles large data tables efficiently on mobile devices.'
+            'Designing an optimistic UI with dual-layer caching (sessionStorage + Supabase PostgreSQL).',
+            'Creating complex, intuitive forms for student admissions and fee penalty calculations.',
+            'Building a responsive, scalable filtering and data-table solution for administrators.'
         ],
         features: [
-            'Comprehensive Student Profiles & Records',
-            'Fee Management & Payment Tracking',
-            'Academic Performance Analysis',
-            'Data Export & Report Generation'
+            'Comprehensive Student Records Management',
+            'Automated Fee Tracking & Fines',
+            '1-Click Admissions Workflow',
+            'Transfer Certificates Generation',
+            'Interactive Onboarding Tour'
         ],
-        tech: ['React', 'Node.js', 'LocalStorage', 'Tailwind CSS'],
-        github: 'https://github.com/Sayanthegamer/Student-Management-System',
+        tech: ['React 19', 'Vite', 'Tailwind CSS 4', 'React Router 7', 'Supabase'],
+        github: 'https://github.com/Sayanthegamer/student-management',
         demo: 'https://student-management-nine-tawny.vercel.app/',
         image: '/student-manager-preview.png',
     },
     {
-        title: 'PhiloMind',
-        description: 'An AI-powered philosophy companion that facilitates deep, meaningful dialogue about life and ethics.',
-        longDescription: 'PhiloMind is a unique AI application designed to be a digital philosopher. Powered by Google\'s GenAI, it engages users in Socratic dialogue, helping them explore complex ethical dilemmas and philosophical concepts. The interface uses elegant typography (Cormorant Garamond) to create a contemplative atmosphere.',
+        title: 'PhiloMind 🧠',
+        description: 'An interactive AI web application that assesses your "Philosophical Maturity".',
+        longDescription: 'PhiloMind powered by Google\'s Gemini AI, provides personalized insights into your worldview, ethics, and decision-making style based on your responses to deep, thought-provoking questions. It assigns you a unique "Philosophical Persona" (like Stoic Individualist or Rational Humanist).',
         challenges: [
-            'Prompt engineering the AI to maintain a philosophical persona and avoid generic chatbot responses.',
-            'Implementing "Save as Image" functionality to let users share profound quotes.',
-            'Creating a "glassmorphism" UI that feels modern yet timeless.'
+            'Prompting Gemini to parse deeply nuanced philosophical responses uniformly.',
+            'Structuring the React frontend to sequentially reveal the AI\'s diagnostic insights.',
+            'Using html-to-image to generate perfectly tailored, shareable social media cards.'
         ],
         features: [
-            'Deep Philosophical Dialogue with AI',
-            'Socratic Questioning Engine',
-            'Shareable Quote Generation',
-            'Elegant, Distraction-Free Design'
+            'Deep Philosophical Questionnaire',
+            'AI-Powered Psycho-Ethic Analysis',
+            'Unique Philosophical Persona Matching',
+            'Generate Shareable Insight Cards'
         ],
-        tech: ['React', 'Google GenAI', 'Lucide React', 'Tailwind'],
-        github: 'https://github.com/Sayanthegamer/PhiloMind',
+        tech: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Google Gemini API', 'html-to-image'],
+        github: 'https://github.com/Sayanthegamer/Philomind',
         demo: 'https://philomind.vercel.app/',
         image: '/philomind-preview.png',
     },
     {
         title: 'Aether | Quiet Reflection',
-        description: 'A generative space for poetic thought where users can transmute their noise into silence.',
-        longDescription: 'Aether is a generative art and poetry application. It invites users to input their current mood or "noise," which the AI then transmutes into a unique piece of poetry. The experience is enhanced by a dreamlike, calming interface that encourages mindfulness and reflection.',
+        description: 'A generative, poetic ambient space designed to help you process your emotions.',
+        longDescription: 'By releasing a mood or thought to the Aetherin, users receive a short, healing poem based on elemental themes (Water, Wind, Sun, Earth). The interface is built to be a digital sanctuary—calming, slow, and aesthetically pleasing featuring procedural audio.',
         challenges: [
-            'Integrating Google GenAI to generate contextually relevant and emotionally resonant poetry.',
-            'Designing a "mood input" system that feels organic rather than form-based.',
-            'Creating an immersive, calming visual atmosphere using soft colors and typography.'
+            'Building a procedural, entirely generative real-time ambient sound engine in the browser.',
+            'Styling advanced fluid graphics and liquid animations to complement the mood.',
+            'Crafting prompts for Gemini 2.5 Flash to act as an emotional alchemist turning user stress into poetry.'
         ],
         features: [
-            'AI-Generated Poetry based on Mood',
-            'Generative Art & Visuals',
-            'Mindfulness & Reflection Tools',
-            'Seamless, Dreamlike User Interface'
+            'Emotional Alchemy (AI Poetry Generation)',
+            'Procedural Ambient Sound Engine',
+            'Dynamic Elemental Theme System',
+            'Atmospheric Glassmorphism UI',
         ],
-        tech: ['React', 'Google GenAI', 'Framer Motion', 'Vite'],
+        tech: ['React 19', 'TypeScript', 'Google Gemini AI', 'Tailwind CSS', 'Framer Motion'],
         github: 'https://github.com/Sayanthegamer/a-e-t-h-e-r',
         demo: 'https://a-e-t-h-e-r-inky.vercel.app/',
         image: '/aether-preview.png',
@@ -90,7 +92,7 @@ const projects = [
 
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
-    const { unlockAchievement } = useAchievements();
+    const unlockAchievement = useAchievementStore((state) => state.unlockAchievement);
 
     return (
         <section id="projects" className="section">

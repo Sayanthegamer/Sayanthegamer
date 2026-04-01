@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useAchievements } from '../context/AchievementContext';
+import { useAchievementStore } from '../store/useAchievementStore';
 
 interface FlipCardProps {
     frontContent: React.ReactNode;
@@ -9,7 +9,7 @@ interface FlipCardProps {
 
 const FlipCard = ({ frontContent, backContent }: FlipCardProps) => {
     const [isFlipped, setIsFlipped] = useState(false);
-    const { unlockAchievement } = useAchievements();
+    const unlockAchievement = useAchievementStore((state) => state.unlockAchievement);
 
     const handleFlip = () => {
         if (!isFlipped) {

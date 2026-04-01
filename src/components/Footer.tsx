@@ -1,9 +1,9 @@
 import { Github, Mail, Instagram } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useAchievements } from '../context/AchievementContext';
+import { useAchievementStore } from '../store/useAchievementStore';
 
 const Footer = () => {
-    const { unlockAchievement } = useAchievements();
+    const unlockAchievement = useAchievementStore((state) => state.unlockAchievement);
 
     return (
         <footer className="py-8 border-t border-slate-800 bg-slate-900 text-center">

@@ -7,13 +7,14 @@ import ContactTerminal from './components/ContactTerminal';
 import Footer from './components/Footer';
 import Background from './components/Background';
 
-import { AchievementProvider } from './context/AchievementContext';
+import AchievementToast from './components/AchievementToast';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
   return (
-    <AchievementProvider>
+    <>
+      <AchievementToast />
       <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-sky-500/30">
         <Background />
 
@@ -30,7 +31,7 @@ function App() {
         <Analytics />
         <SpeedInsights />
       </div>
-    </AchievementProvider>
+    </>
   );
 }
 
