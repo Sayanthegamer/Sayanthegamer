@@ -4,7 +4,6 @@ import { forwardRef, useImperativeHandle, useEffect, useRef, useMemo } from 'rea
 import * as THREE from 'three';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
-import { degToRad } from 'three/src/math/MathUtils.js';
 import './Beams.css';
 
 function extendMaterial(BaseMaterial, cfg) {
@@ -226,7 +225,7 @@ const Beams = ({
 
   return (
     <CanvasWrapper className={className} style={style}>
-      <group rotation={[0, 0, degToRad(rotation)]}>
+      <group rotation={[0, 0, THREE.MathUtils.degToRad(rotation)]}>
         <PlaneNoise ref={meshRef} material={beamMaterial} count={beamNumber} width={beamWidth} height={beamHeight} />
         <DirLight color={lightColor} position={[0, 3, 10]} />
       </group>
