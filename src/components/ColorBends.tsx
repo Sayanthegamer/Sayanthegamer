@@ -39,9 +39,10 @@ void main() {
   q += toward * uMouseInfluence * 0.2;
 
     for (int j = 0; j < 5; j++) {
-      if (j >= uIterations - 1) break;
-      vec2 rr = sin(1.5 * (q.yx * uFrequency) + 2.0 * cos(q * uFrequency));
-      q += (rr - q) * 0.15;
+      if (j < uIterations - 1) {
+        vec2 rr = sin(1.5 * (q.yx * uFrequency) + 2.0 * cos(q * uFrequency));
+        q += (rr - q) * 0.15;
+      }
     }
 
     vec3 col = vec3(0.0);
@@ -52,20 +53,21 @@ void main() {
       vec3 sumCol = vec3(0.0);
       float cover = 0.0;
       for (int i = 0; i < MAX_COLORS; ++i) {
-            if (i >= uColorCount) break;
-            s -= 0.01;
-            vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
-            float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
-            float kBelow = clamp(uWarpStrength, 0.0, 1.0);
-            float kMix = pow(kBelow, 0.3); // strong response across 0..1
-            float gain = 1.0 + max(uWarpStrength - 1.0, 0.0); // allow >1 to amplify displacement
-            vec2 disp = (r - s) * kBelow;
-            vec2 warped = s + disp * gain;
-            float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
-            float m = mix(m0, m1, kMix);
-            float w = 1.0 - exp(-uBandWidth / exp(uBandWidth * m));
-            sumCol += uColors[i] * w;
-            cover = max(cover, w);
+            if (i < uColorCount) {
+                s -= 0.01;
+                vec2 r = sin(1.5 * (s.yx * uFrequency) + 2.0 * cos(s * uFrequency));
+                float m0 = length(r + sin(5.0 * r.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+                float kBelow = clamp(uWarpStrength, 0.0, 1.0);
+                float kMix = pow(kBelow, 0.3); // strong response across 0..1
+                float gain = 1.0 + max(uWarpStrength - 1.0, 0.0); // allow >1 to amplify displacement
+                vec2 disp = (r - s) * kBelow;
+                vec2 warped = s + disp * gain;
+                float m1 = length(warped + sin(5.0 * warped.y * uFrequency - 3.0 * t + float(i)) / 4.0);
+                float m = mix(m0, m1, kMix);
+                float w = 1.0 - exp(-uBandWidth / exp(uBandWidth * m));
+                sumCol += uColors[i] * w;
+                cover = max(cover, w);
+            }
       }
       col = clamp(sumCol, 0.0, 1.0);
       a = uTransparent > 0 ? cover : 1.0;

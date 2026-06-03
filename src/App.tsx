@@ -33,7 +33,7 @@ function App() {
   return (
     <>
       <AchievementToast />
-      <div className="min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text)] selection:bg-[rgba(var(--theme-accent-rgb),0.3)] transition-colors duration-400">
+      <div className="min-h-screen bg-transparent text-[var(--theme-text)] selection:bg-[rgba(var(--theme-accent-rgb),0.3)] transition-colors duration-400">
         <Background />
         
         {/* Floating HUD controls */}
