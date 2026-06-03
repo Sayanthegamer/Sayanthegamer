@@ -5,7 +5,21 @@ import SpotlightCard from './SpotlightCard';
 import ProjectModal from './ProjectModal';
 import { useAchievementStore } from '../store/useAchievementStore';
 
-const projects = [
+
+export interface Project {
+    title: string;
+    description: string;
+    longDescription?: string;
+    challenges?: string[];
+    features?: string[];
+    tech: string[];
+    github: string;
+    demo?: string;
+    image: string;
+}
+
+const projects: Project[] = [
+
     {
         title: 'Kron0',
         description: 'A modern, neo-glassmorphism inspired productivity companion designed for students.',
@@ -88,10 +102,73 @@ const projects = [
         demo: 'https://a-e-t-h-e-r-inky.vercel.app/',
         image: '/aether-preview.png',
     },
+
+    {
+                        title: 'MuktaVidya',
+        description: 'A lightweight, privacy-conscious platform for generating and rendering AI-powered mathematical solutions.',
+        longDescription: 'Muktavidya is built to provide seamless, accurate, and beautifully rendered math solutions. By leveraging the Gemini API and a modern web stack, it offers a responsive and robust experience. The application relies on anonymous architecture, avoiding heavy user identity providers. Everything is stored locally, ensuring complete ownership of your data.',
+        challenges: [
+            'Implementing rate-limiting via browser-driven validation combined with server-side IP tracking.',
+            'Using IndexedDB for local state management without heavy third-party authentication.',
+            'Rendering beautiful mathematical typography with KaTeX and custom Markdown.'
+        ],
+        features: [
+            'AI-Powered Math Problem Solving',
+            'KaTeX & React Markdown Integration',
+            'Privacy-First Architecture (IndexedDB)',
+            'Strict Dark Mode UI with Tailwind CSS v4'
+        ],
+        tech: ['Next.js 16', 'TypeScript', 'Tailwind CSS v4', 'Google Gemini API', 'KaTeX', 'IndexedDB'],
+        github: 'https://github.com/Sayanthegamer/MuktaVidya',
+        demo: 'https://muktavidya.vercel.app/',
+        image: '/muktavidya-preview.png',
+    },
+    {
+        title: 'CircuitJS',
+        description: 'An interactive, visual, and easy-to-use electronic circuit simulator right in your browser!',
+        longDescription: 'CircuitJS is a web-based app that lets you design and test circuits visually. Whether you are a student learning about electricity for the first time, a hobbyist testing an idea, or just someone who likes playing with digital tools, CircuitJS makes electronics accessible to everyone.',
+        challenges: [
+            'Translating circuit drawing into mathematical matrix equations in real-time.',
+            'Building a high-speed rendering engine using HTML5 Canvas for smooth animations.',
+            'Ensuring the application is mobile-friendly with touch controls.'
+        ],
+        features: [
+            'Drag & Drop Building',
+            'Real-Time Visuals and Current Dots',
+            'Voltage Color Indicators',
+            'Fully Stocked Parts Bin (Batteries, Resistors, LEDs, etc.)',
+            'Advanced Plotter for Voltage/Current over time'
+        ],
+        tech: ['React', 'TypeScript', 'Vite', 'HTML5 Canvas'],
+        github: 'https://github.com/Sayanthegamer/circuitjs',
+        demo: 'https://circuitjs.vercel.app/',
+        image: '/circuitjs-preview.png',
+    },
+    {
+        title: 'Lecture Notes Scribe',
+        description: 'A cloud-native pipeline and extension that processes lecture videos to generate comprehensive study guides.',
+        longDescription: 'A cloud-native, asynchronous pipeline and browser extension that processes lecture videos to generate comprehensive, textbook-quality study guides with LaTeX math equations and inline keyframe illustrations. Uses a decoupled state-machine model to handle long-running video processing tasks in distributed cloud environments.',
+        challenges: [
+            'Handling long-running video processing without blocking the web server.',
+            'Bypassing ephemeral storage loss in cloud environments by uploading to Supabase.',
+            'Preventing zombie subprocesses during FFmpeg execution with strict timeouts.'
+        ],
+        features: [
+            'Asynchronous Video Processing Queue',
+            'Multimodal AI Engine using Gemini API',
+            'Inline Keyframe Extraction via FFmpeg',
+            'Chrome Extension Integration',
+            'Live Status Polling'
+        ],
+        tech: ['Python', 'FastAPI', 'Supabase', 'Google Gemini', 'Chrome Extension API', 'FFmpeg'],
+        github: 'https://github.com/Sayanthegamer/lecture-notes-pipeline',
+        image: '/lecture-notes-preview.png',
+    }
+
 ];
 
 const Projects = () => {
-    const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
     const unlockAchievement = useAchievementStore((state) => state.unlockAchievement);
 
     return (
