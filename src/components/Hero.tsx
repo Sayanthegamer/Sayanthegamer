@@ -54,8 +54,7 @@ const Hero = () => {
 
     return (
         <section className="section relative min-h-screen flex items-center justify-center overflow-hidden">
-            {/* Background elements */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,var(--theme-bg)_80%)] pointer-events-none" />
+
 
             <div className="text-center z-10 px-4 max-w-4xl">
                 {/* Live availability indicator */}
