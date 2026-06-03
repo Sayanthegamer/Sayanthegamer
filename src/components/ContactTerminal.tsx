@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal as TerminalIcon } from 'lucide-react';
 import { useAchievementStore, type ActiveTheme } from '../store/useAchievementStore';
+import BorderGlow from './BorderGlow';
 
 interface HistoryEntry {
     type: 'input' | 'output' | 'raw';
@@ -316,12 +317,33 @@ System customizers:
                 </div>
 
                 {/* Main terminal frame */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="relative rounded-2xl overflow-hidden glass-card bg-[var(--theme-bg-card)] border border-[var(--theme-border)] shadow-2xl font-mono text-xs md:text-sm h-[320px] md:h-[450px]"
+                <BorderGlow
+                    edgeSensitivity={30}
+                    glowColor={
+                        activeTheme === 'cyberpunk' ? "330 100 50" :
+                        activeTheme === 'retro' ? "120 100 50" :
+                        activeTheme === 'ocean' ? "190 100 42" : "15 66 45"
+                    }
+                    backgroundColor="var(--theme-bg-card)"
+                    borderRadius={16}
+                    glowRadius={40}
+                    glowIntensity={1.2}
+                    coneSpread={25}
+                    animated
+                    colors={
+                        activeTheme === 'cyberpunk' ? ['#ff007f', '#00f0ff', '#050505'] :
+                        activeTheme === 'retro' ? ['#39ff14', '#ffb000', '#050805'] :
+                        activeTheme === 'ocean' ? ['#00b4d8', '#0077b6', '#030306'] :
+                        ['#c25027', '#8b8680', '#1e1d1b']
+                    }
+                    className="w-full"
                 >
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="relative rounded-2xl overflow-hidden font-mono text-xs md:text-sm h-[320px] md:h-[450px] w-full"
+                    >
                     {/* Matrix screensaver canvas */}
                     {isMatrixMode && (
                         <div className="absolute inset-0 z-30 bg-black cursor-pointer" onClick={() => setIsMatrixMode(false)}>
@@ -383,7 +405,8 @@ System customizers:
                         </form>
                         <div ref={bottomRef} />
                     </div>
-                </motion.div>
+                    </motion.div>
+                </BorderGlow>
 
                 {/* Direct Mail footer */}
                 <p className="text-center text-[var(--theme-text)]/40 text-[10px] tracking-wider mt-8 font-mono">

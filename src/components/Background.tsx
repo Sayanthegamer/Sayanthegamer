@@ -36,9 +36,9 @@ const Background = () => {
         <Beams 
             className="fixed inset-0 -z-50 w-full h-full pointer-events-none select-none"
             style={{ position: 'fixed' }}
-            beamWidth={1.8}
+            beamWidth={3.5}
             beamHeight={28}
-            beamNumber={10}
+            beamNumber={24}
             lightColor={config.lightColor}
             bgColor={config.bgColor}
             speed={1.0}            // Slower speed for a peaceful background flow
