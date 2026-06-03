@@ -39,7 +39,7 @@ const HUDHeader = () => {
     const playClick = () => {
         if (!isMuted) {
             try {
-                const audio = new Audio('/click.mp3'); // Fallback or standard click sound
+                const audio = new Audio('/click.wav'); // Fallback or standard click sound
                 audio.volume = 0.2;
                 audio.play().catch(() => {});
             } catch (e) {}

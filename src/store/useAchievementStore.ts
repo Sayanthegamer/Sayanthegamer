@@ -98,7 +98,7 @@ export const useAchievementStore = create<AchievementStore>()(
                     // Play a subtle sound (safely) if not muted
                     if (!isMuted) {
                         try {
-                            const audio = new Audio('/achievement.mp3');
+                            const audio = new Audio('/achievement.wav');
                             audio.volume = 0.4;
                             audio.play().catch((e) => console.log('Audio play failed (expected if no interaction):', e));
                         } catch (e) {

@@ -94,8 +94,8 @@ const ContactTerminal = () => {
     const playSound = (type: 'type' | 'enter' | 'game_success') => {
         if (isMuted) return;
         try {
-            let audioPath = '/click.mp3';
-            if (type === 'enter') audioPath = '/achievement.mp3';
+            let audioPath = '/click.wav';
+            if (type === 'enter') audioPath = '/achievement.wav';
             const audio = new Audio(audioPath);
             audio.volume = type === 'enter' ? 0.3 : 0.1;
             audio.play().catch(() => {});
