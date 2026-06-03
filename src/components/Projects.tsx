@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Terminal, RefreshCw } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
 import ProjectModal from './ProjectModal';
 import { useAchievementStore } from '../store/useAchievementStore';
-
 
 export interface Project {
     title: string;
@@ -19,7 +18,6 @@ export interface Project {
 }
 
 const projects: Project[] = [
-
     {
         title: 'Kron0',
         description: 'A modern, neo-glassmorphism inspired productivity companion designed for students.',
@@ -36,7 +34,7 @@ const projects: Project[] = [
             'Cross-device Firebase Sync',
             'Installable PWA Ready'
         ],
-        tech: ['React', 'TypeScript', 'Firebase', 'Tailwind CSS', 'Framer Motion', 'Vite'],
+        tech: ['React', 'TypeScript', 'Firebase', 'Tailwind', 'Framer Motion', 'Vite'],
         github: 'https://github.com/Sayanthegamer/kron0',
         demo: 'https://kron0.vercel.app/',
         image: '/kron0-preview.png',
@@ -57,7 +55,7 @@ const projects: Project[] = [
             'Transfer Certificates Generation',
             'Interactive Onboarding Tour'
         ],
-        tech: ['React 19', 'Vite', 'Tailwind CSS 4', 'React Router 7', 'Supabase'],
+        tech: ['React', 'Vite', 'Tailwind', 'React Router 7', 'Supabase', 'Security'],
         github: 'https://github.com/Sayanthegamer/student-management',
         demo: 'https://student-management-nine-tawny.vercel.app/',
         image: '/student-manager-preview.png',
@@ -77,7 +75,7 @@ const projects: Project[] = [
             'Unique Philosophical Persona Matching',
             'Generate Shareable Insight Cards'
         ],
-        tech: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Google Gemini API', 'html-to-image'],
+        tech: ['React', 'TypeScript', 'Vite', 'Tailwind', 'Google AI Studio'],
         github: 'https://github.com/Sayanthegamer/Philomind',
         demo: 'https://philomind.vercel.app/',
         image: '/philomind-preview.png',
@@ -97,14 +95,13 @@ const projects: Project[] = [
             'Dynamic Elemental Theme System',
             'Atmospheric Glassmorphism UI',
         ],
-        tech: ['React 19', 'TypeScript', 'Google Gemini AI', 'Tailwind CSS', 'Framer Motion'],
+        tech: ['React', 'TypeScript', 'Google AI Studio', 'Tailwind', 'Framer Motion'],
         github: 'https://github.com/Sayanthegamer/a-e-t-h-e-r',
         demo: 'https://a-e-t-h-e-r-inky.vercel.app/',
         image: '/aether-preview.png',
     },
-
     {
-                        title: 'MuktaVidya',
+        title: 'MuktaVidya',
         description: 'A lightweight, privacy-conscious platform for generating and rendering AI-powered mathematical solutions.',
         longDescription: 'Muktavidya is built to provide seamless, accurate, and beautifully rendered math solutions. By leveraging the Gemini API and a modern web stack, it offers a responsive and robust experience. The application relies on anonymous architecture, avoiding heavy user identity providers. Everything is stored locally, ensuring complete ownership of your data.',
         challenges: [
@@ -116,9 +113,9 @@ const projects: Project[] = [
             'AI-Powered Math Problem Solving',
             'KaTeX & React Markdown Integration',
             'Privacy-First Architecture (IndexedDB)',
-            'Strict Dark Mode UI with Tailwind CSS v4'
+            'Strict Dark Mode UI'
         ],
-        tech: ['Next.js 16', 'TypeScript', 'Tailwind CSS v4', 'Google Gemini API', 'KaTeX', 'IndexedDB'],
+        tech: ['Next.js', 'TypeScript', 'Tailwind', 'Google AI Studio', 'Security'],
         github: 'https://github.com/Sayanthegamer/MuktaVidya',
         demo: 'https://muktavidya.vercel.app/',
         image: '/muktavidya-preview.png',
@@ -160,99 +157,164 @@ const projects: Project[] = [
             'Chrome Extension Integration',
             'Live Status Polling'
         ],
-        tech: ['Python', 'FastAPI', 'Supabase', 'Google Gemini', 'Chrome Extension API', 'FFmpeg'],
+        tech: ['TypeScript', 'Supabase', 'Google AI Studio', 'Security'],
         github: 'https://github.com/Sayanthegamer/lecture-notes-pipeline',
         image: '/lecture-notes-preview.png',
     }
-
 ];
 
 const Projects = () => {
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-    const unlockAchievement = useAchievementStore((state) => state.unlockAchievement);
+    const { unlockAchievement, selectedTechFilter, clearTechFilter, isMuted } = useAchievementStore();
+
+    const playClick = () => {
+        if (!isMuted) {
+            try {
+                const audio = new Audio('/click.mp3');
+                audio.volume = 0.15;
+                audio.play().catch(() => {});
+            } catch (e) {}
+        }
+    };
+
+    const handleProjectClick = (project: Project) => {
+        setSelectedProject(project);
+        unlockAchievement('deep_diver');
+        playClick();
+    };
+
+    // Filter projects based on the active tech stack synthesizer
+    const filteredProjects = selectedTechFilter.length === 0
+        ? projects
+        : projects.filter(p => selectedTechFilter.some(tech => p.tech.includes(tech)));
 
     return (
-        <section id="projects" className="section">
-            <div className="container mx-auto px-4">
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-3xl md:text-5xl font-bold mb-16 text-center font-serif"
-                >
-                    Featured Projects
-                </motion.h2>
-
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                    {projects.map((project, index) => {
-                        const getSpan = (i: number) => {
-                            switch(i % 7) {
-                                case 0: return "md:col-span-8";
-                                case 1: return "md:col-span-4";
-                                case 2: return "md:col-span-4 lg:col-span-5";
-                                case 3: return "md:col-span-8 lg:col-span-7";
-                                case 4: return "md:col-span-6";
-                                case 5: return "md:col-span-6";
-                                case 6: return "md:col-span-12";
-                                default: return "md:col-span-12";
-                            }
-                        };
-                        return (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            onClick={() => {
-                                setSelectedProject(project);
-                                unlockAchievement('deep_diver');
-                            }}
-                            className={`cursor-pointer group ${getSpan(index)}`}
-                        >
-                            <SpotlightCard className="h-full flex flex-col p-2">
-                                <div className="relative h-56 md:h-64 overflow-hidden rounded-lg">
-                                    <div className="absolute inset-0 bg-[#0d0c0c]/40 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                                    <img
-                                        src={project.image}
-                                        alt={project.title}
-                                        loading="lazy"
-                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
-                                    />
-                                </div>
-
-                                <div className="p-6 flex-1 flex flex-col">
-                                    <h3 className="text-2xl font-bold mb-3 text-[#f5f3ef] group-hover:text-[#c25027] transition-colors font-serif">
-                                        {project.title}
-                                    </h3>
-                                    <p className="text-[#8b8680] text-sm md:text-base mb-6 flex-1 leading-relaxed">
-                                        {project.description}
-                                    </p>
-
-                                    <div className="flex flex-wrap gap-2 mb-6">
-                                        {project.tech.map((t) => (
-                                            <span key={t} className="text-xs px-3 py-1 rounded-full bg-[#1e1d1b] text-[#e0ddd7] border border-[rgba(255,255,255,0.04)] shadow-sm">
-                                                {t}
-                                            </span>
-                                        ))}
-                                    </div>
-
-                                    <div className="flex items-center gap-2 text-[#c25027] text-sm font-medium mt-auto group/link">
-                                        View Details
-                                        <ArrowRight size={16} className="transform group-hover/link:translate-x-1 transition-transform" />
-                                    </div>
-                                </div>
-                            </SpotlightCard>
-                        </motion.div>
-                        );
-                    })}
+        <section id="projects" className="py-20 relative flex flex-col justify-center items-center w-full">
+            <div className="w-full max-w-6xl px-4 md:px-6">
+                <div className="text-center mb-16">
+                    <motion.h2
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-3xl md:text-5xl font-bold text-[var(--theme-text-header)] font-serif mb-4"
+                    >
+                        Featured Modules
+                    </motion.h2>
+                    {selectedTechFilter.length > 0 && (
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--theme-accent)] bg-[rgba(var(--theme-accent-rgb),0.05)] text-xs font-mono text-[var(--theme-accent)]">
+                            <span>FILTERED_BY: {selectedTechFilter.join(', ')}</span>
+                        </div>
+                    )}
                 </div>
+
+                <motion.div 
+                    layout 
+                    className="grid grid-cols-1 md:grid-cols-12 gap-6 min-h-[300px]"
+                >
+                    <AnimatePresence mode="popLayout">
+                        {filteredProjects.map((project, index) => {
+                            // Bento Span calculations
+                            const getSpan = (i: number) => {
+                                switch (i % 5) {
+                                    case 0: return "md:col-span-8";
+                                    case 1: return "md:col-span-4";
+                                    case 2: return "md:col-span-4 lg:col-span-5";
+                                    case 3: return "md:col-span-8 lg:col-span-7";
+                                    case 4: return "md:col-span-12";
+                                    default: return "md:col-span-12";
+                                }
+                            };
+
+                            return (
+                                <motion.div
+                                    layout
+                                    key={project.title}
+                                    initial={{ opacity: 0, scale: 0.95 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0.95 }}
+                                    transition={{ duration: 0.35 }}
+                                    className={`${getSpan(index)} h-[380px] md:h-[450px]`}
+                                >
+                                    <SpotlightCard 
+                                        className="h-full flex flex-col justify-end p-6 bg-[var(--theme-bg-card)] border-[var(--theme-border)] group relative cursor-pointer"
+                                    >
+                                        <div 
+                                            onClick={() => handleProjectClick(project)}
+                                            className="absolute inset-0 z-0 overflow-hidden"
+                                        >
+                                            <div className="absolute inset-0 bg-gradient-to-t from-[var(--theme-bg)] via-[var(--theme-bg)]/40 to-transparent z-10 group-hover:scale-105 transition-transform duration-500" />
+                                            <img
+                                                src={project.image}
+                                                alt={project.title}
+                                                className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                                            />
+                                        </div>
+
+                                        <div 
+                                            onClick={() => handleProjectClick(project)}
+                                            className="relative z-20 flex flex-col h-full justify-between pointer-events-none"
+                                        >
+                                            <div className="flex justify-between items-start">
+                                                <div className="flex flex-wrap gap-1.5 max-w-[80%]">
+                                                    {project.tech.map((t) => (
+                                                        <span
+                                                            key={t}
+                                                            className="px-2 py-0.5 text-[9px] font-mono rounded-md border border-[var(--theme-border)] bg-[var(--theme-bg)]/80 text-[var(--theme-text)]/90"
+                                                        >
+                                                            {t}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                                <div className="w-8 h-8 rounded-full border border-[var(--theme-border)] flex items-center justify-center text-[var(--theme-text)] group-hover:border-[var(--theme-accent)] group-hover:text-[var(--theme-accent)] transition-all bg-[var(--theme-bg)]/60">
+                                                    <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <h3 className="text-xl md:text-2xl font-serif font-bold text-[var(--theme-text-header)] mb-2 group-hover:text-[var(--theme-accent)] transition-colors">
+                                                    {project.title}
+                                                </h3>
+                                                <p className="text-xs md:text-sm text-[var(--theme-text)]/85 font-light line-clamp-2">
+                                                    {project.description}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </SpotlightCard>
+                                </motion.div>
+                            );
+                        })}
+                    </AnimatePresence>
+
+                    {/* Empty Filter State fallback */}
+                    {filteredProjects.length === 0 && (
+                        <motion.div 
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="col-span-12 p-12 text-center flex flex-col items-center justify-center gap-4 rounded-3xl border border-[var(--theme-border)] bg-[var(--theme-bg-card)] min-h-[300px]"
+                        >
+                            <Terminal size={32} className="text-[var(--theme-accent)] animate-pulse" />
+                            <h3 className="text-xl font-bold font-serif text-[var(--theme-text-header)]">
+                                NO_COMPATIBLE_ENGINES_SYNTHESIZED
+                            </h3>
+                            <p className="text-xs text-[var(--theme-text)]/60 font-mono tracking-wider max-w-md">
+                                The current filter stack combinations ({selectedTechFilter.join(' + ')}) returned 0 running instances. Re-adjust your synthesizer board.
+                            </p>
+                            <button
+                                onClick={() => { clearTechFilter(); playClick(); }}
+                                className="mt-2 flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--theme-accent)] text-white text-xs font-mono tracking-wider shadow-[0_0_15px_var(--theme-glow)] border-none"
+                            >
+                                <RefreshCw size={12} /> REBOOT_SYNTHESIZER
+                            </button>
+                        </motion.div>
+                    )}
+                </motion.div>
             </div>
 
+            {/* Project Detailed Modal */}
             <ProjectModal
                 project={selectedProject}
-                isOpen={!!selectedProject}
-                onClose={() => setSelectedProject(null)}
+                isOpen={selectedProject !== null}
+                onClose={() => { setSelectedProject(null); playClick(); }}
             />
         </section>
     );

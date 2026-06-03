@@ -44,7 +44,7 @@ const SpotlightCard = ({ children, className = "", isInverted = false }: { child
             onBlur={handleBlur}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className={`relative overflow-hidden rounded-xl border border-[rgba(255,255,255,0.06)] bg-[#141312] ${className}`}
+            className={`relative overflow-hidden rounded-xl border border-[var(--theme-border)] bg-[var(--theme-bg-card)] ${className}`}
             whileHover={{ y: -4, scale: 1.01 }}
             transition={{ duration: 0.3 }}
         >
@@ -52,7 +52,7 @@ const SpotlightCard = ({ children, className = "", isInverted = false }: { child
                 className="pointer-events-none absolute -inset-px transition-opacity duration-300"
                 style={{
                     opacity,
-                    background: `radial-gradient(600px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(194, 80, 39, 0.12), transparent 40%)`,
+                    background: `radial-gradient(400px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), var(--theme-glow), transparent 60%)`,
                 }}
             />
             <div className="relative h-full">{children}</div>

@@ -1,40 +1,71 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600&family=Sora:wght@300;400;500;600;700&family=Unbounded:wght@400;500;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Theme Variable Bindings */
 :root {
-  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Default: Aero (Tactile Dark Slate / Rust Accent) */
+  --theme-bg: #0d0c0c;
+  --theme-bg-card: rgba(24, 23, 22, 0.7);
+  --theme-text: #e0ddd7;
+  --theme-text-header: #f5f3ef;
+  --theme-accent: #c25027;
+  --theme-accent-rgb: 194, 80, 39;
+  --theme-border: rgba(255, 255, 255, 0.06);
+  --theme-border-hover: rgba(194, 80, 39, 0.3);
+  --theme-glow: rgba(194, 80, 39, 0.15);
+  --theme-scrollbar-bg: #1e1d1b;
+  
+  font-family: 'Sora', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
   font-weight: 400;
-
-  color-scheme: dark;
-  color: #e0ddd7;
-  background-color: #0d0c0c;
-
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  --primary: #c25027; /* Rust Orange */
-  --secondary: #8b8680;
-  --bg-card: rgba(24, 23, 22, 0.6);
-  --border: rgba(255, 255, 255, 0.06);
 }
 
+/* Cyberpunk Theme (Deep Black / Cyan & Magenta Glows) */
+body.theme-cyberpunk, .theme-cyberpunk {
+  --theme-bg: #030303;
+  --theme-bg-card: rgba(10, 10, 12, 0.85);
+  --theme-text: #d8f3fd;
+  --theme-text-header: #00f0ff;
+  --theme-accent: #ff007f;
+  --theme-accent-rgb: 255, 0, 127;
+  --theme-border: rgba(0, 240, 255, 0.15);
+  --theme-border-hover: rgba(255, 0, 127, 0.4);
+  --theme-glow: rgba(255, 0, 127, 0.2);
+  --theme-scrollbar-bg: #0e0e12;
+}
 
+/* Retro Terminal Theme (Phosphor Green / Amber Accent) */
+body.theme-retro, .theme-retro {
+  --theme-bg: #050805;
+  --theme-bg-card: rgba(8, 14, 8, 0.9);
+  --theme-text: #39ff14;
+  --theme-text-header: #39ff14;
+  --theme-accent: #ffb000;
+  --theme-accent-rgb: 255, 176, 0;
+  --theme-border: rgba(57, 255, 20, 0.2);
+  --theme-border-hover: rgba(255, 176, 0, 0.5);
+  --theme-glow: rgba(57, 255, 20, 0.15);
+  --theme-scrollbar-bg: #0a100a;
+}
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Playfair Display', "Newsreader", serif;
-  letter-spacing: -0.03em;
-  color: #f5f3ef;
+/* Deep Ocean Theme (Abyssal Teal / Aqua Accent) */
+body.theme-ocean, .theme-ocean {
+  --theme-bg: #010d18;
+  --theme-bg-card: rgba(3, 23, 40, 0.75);
+  --theme-text: #add5f7;
+  --theme-text-header: #e3f2fd;
+  --theme-accent: #00b4d8;
+  --theme-accent-rgb: 0, 180, 216;
+  --theme-border: rgba(0, 180, 216, 0.15);
+  --theme-border-hover: rgba(0, 180, 216, 0.45);
+  --theme-glow: rgba(0, 180, 216, 0.2);
+  --theme-scrollbar-bg: #021a2c;
 }
 
 * {
@@ -52,82 +83,84 @@ body {
   width: 100%;
   overflow-x: hidden;
   position: relative;
+  background-color: var(--theme-bg);
+  color: var(--theme-text);
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+/* Fine CRT & Grain overlay for the dark hacker vibe */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  opacity: 0.8;
+  opacity: 0.85;
 }
 
+/* Typographic rules conforming to Impeccable guidelines */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Unbounded', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--theme-text-header);
+  text-wrap: balance;
+  transition: color 0.4s ease;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2.5vw, 1.875rem);
+  line-height: 1.3;
+}
+
+p {
+  max-width: 75ch; /* Impeccable cap */
+  line-height: 1.6;
+}
+
+/* Anchor override following color rules */
 a {
   font-weight: 500;
-  color: var(--primary);
+  color: var(--theme-accent);
   text-decoration: inherit;
-  transition: color 0.2s;
+  transition: color 0.2s, text-shadow 0.2s;
 }
 
 a:hover {
-  color: #7dd3fc;
-  /* Sky 300 */
+  color: var(--theme-text-header);
+  text-shadow: 0 0 8px var(--theme-glow);
 }
 
-
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+/* Glass card systems */
+.glass-card {
+  background: var(--theme-bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--theme-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
 }
 
-button:hover {
-  border-color: var(--primary);
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0f172a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #475569;
-}
-
-.glass {
-  background: var(--bg-card);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--border);
+.glass-card:hover {
+  border-color: var(--theme-border-hover);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), 0 0 15px var(--theme-glow);
 }
 
 .section {
   min-height: 100vh;
-  padding: 4rem 2rem;
+  padding: 6rem 1.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -136,6 +169,27 @@ button:focus-visible {
   margin: 0 auto;
 }
 
+/* Custom Scrollbar Styles matching active theme */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--theme-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-scrollbar-bg);
+  border: 2px solid var(--theme-bg);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-accent);
+}
+
+/* 3D Flip System Utility */
 .perspective-1000 {
   perspective: 1000px;
 }
@@ -149,33 +203,20 @@ button:focus-visible {
   -webkit-backface-visibility: hidden;
 }
 
-@keyframes blob {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
+/* Hide scrollbar utility */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.animate-blob {
-  animation: blob 10s infinite;
-  will-change: transform;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
+/* Scanning scanline overlay inside terminal */
+.scanlines {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
 }

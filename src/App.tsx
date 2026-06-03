@@ -1,3 +1,4 @@
+import HUDHeader from './components/HUDHeader';
 import Hero from './components/Hero';
 import Hobbies from './components/Hobbies';
 import Projects from './components/Projects';
@@ -15,10 +16,13 @@ function App() {
   return (
     <>
       <AchievementToast />
-      <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-sky-500/30">
+      <div className="min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text)] selection:bg-[rgba(var(--theme-accent-rgb),0.3)] transition-colors duration-400">
         <Background />
+        
+        {/* Floating HUD controls */}
+        <HUDHeader />
 
-        <main className="relative z-10 flex flex-col gap-20 md:gap-32 pb-20">
+        <main className="relative z-10 flex flex-col gap-20 md:gap-32 pb-20 pt-16">
           <Hero />
           <TechStack />
           <Hobbies />

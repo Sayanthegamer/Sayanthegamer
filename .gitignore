@@ -29,3 +29,9 @@ patch_projects2.py
 diff.txt
 git_diff.txt
 code_review_message.txt
+
+# Local Agent & Impeccable State
+.agents/
+.impeccable/
+skills-lock.json
+
