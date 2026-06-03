@@ -9,7 +9,7 @@ interface Project {
     features?: string[];
     tech: string[];
     github: string;
-    demo: string;
+    demo?: string;
     image: string;
 }
 
@@ -125,15 +125,24 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
 
                             {/* Action Buttons */}
                             <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-slate-800">
-                                <a
-                                    href={project.demo}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-medium transition-colors"
-                                >
-                                    <ExternalLink size={18} />
-                                    View Live Demo
-                                </a>
+                                {project.demo ? (
+                                    <a
+                                        href={project.demo}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-medium transition-colors"
+                                    >
+                                        <ExternalLink size={18} />
+                                        View Live Demo
+                                    </a>
+                                ) : (
+                                    <button
+                                        disabled
+                                        className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-800 text-slate-500 font-medium cursor-not-allowed"
+                                    >
+                                        (live demo coming soon...)
+                                    </button>
+                                )}
                                 <a
                                     href={project.github}
                                     target="_blank"

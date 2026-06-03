@@ -1,0 +1,159 @@
+diff --git a/public/circuitjs-preview.png b/public/circuitjs-preview.png
+new file mode 100644
+index 0000000..4bc0a99
+Binary files /dev/null and b/public/circuitjs-preview.png differ
+diff --git a/public/lecture-notes-preview.png b/public/lecture-notes-preview.png
+new file mode 100644
+index 0000000..6a6ea1d
+Binary files /dev/null and b/public/lecture-notes-preview.png differ
+diff --git a/public/muktavidya-preview.png b/public/muktavidya-preview.png
+new file mode 100644
+index 0000000..21a952d
+Binary files /dev/null and b/public/muktavidya-preview.png differ
+diff --git a/src/components/ProjectModal.tsx b/src/components/ProjectModal.tsx
+index 80f863e..17a0dcb 100644
+--- a/src/components/ProjectModal.tsx
++++ b/src/components/ProjectModal.tsx
+@@ -9,7 +9,7 @@ interface Project {
+     features?: string[];
+     tech: string[];
+     github: string;
+-    demo: string;
++    demo?: string;
+     image: string;
+ }
+
+@@ -125,15 +125,24 @@ const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
+
+                             {/* Action Buttons */}
+                             <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-slate-800">
+-                                <a
+-                                    href={project.demo}
+-                                    target="_blank"
+-                                    rel="noopener noreferrer"
+-                                    className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-medium transition-colors"
+-                                >
+-                                    <ExternalLink size={18} />
+-                                    View Live Demo
+-                                </a>
++                                {project.demo ? (
++                                    <a
++                                        href={project.demo}
++                                        target="_blank"
++                                        rel="noopener noreferrer"
++                                        className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-medium transition-colors"
++                                    >
++                                        <ExternalLink size={18} />
++                                        View Live Demo
++                                    </a>
++                                ) : (
++                                    <button
++                                        disabled
++                                        className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-slate-800 text-slate-500 font-medium cursor-not-allowed"
++                                    >
++                                        (live demo coming soon...)
++                                    </button>
++                                )}
+                                 <a
+                                     href={project.github}
+                                     target="_blank"
+diff --git a/src/components/Projects.tsx b/src/components/Projects.tsx
+index 4b5081b..0f5edff 100644
+--- a/src/components/Projects.tsx
++++ b/src/components/Projects.tsx
+@@ -5,7 +5,21 @@ import SpotlightCard from './SpotlightCard';
+ import ProjectModal from './ProjectModal';
+ import { useAchievementStore } from '../store/useAchievementStore';
+
+-const projects = [
++
++export interface Project {
++    title: string;
++    description: string;
++    longDescription?: string;
++    challenges?: string[];
++    features?: string[];
++    tech: string[];
++    github: string;
++    demo?: string;
++    image: string;
++}
++
++const projects: Project[] = [
++
+     {
+         title: 'Kron0',
+         description: 'A modern, neo-glassmorphism inspired productivity companion designed for students.',
+@@ -88,10 +102,71 @@ const projects = [
+         demo: 'https://a-e-t-h-e-r-inky.vercel.app/',
+         image: '/aether-preview.png',
+     },
++
++    {
++        title: 'MuktaVidya',
++        description: 'An open-source educational platform or tool.',
++        longDescription: 'MuktaVidya is a Next.js project bootstrapped with create-next-app, providing an educational platform.',
++        challenges: [
++            'Building a robust Next.js application.',
++            'Setting up a modern frontend environment.'
++        ],
++        features: [
++            'Built with Next.js',
++            'Optimized fonts with next/font',
++            'Vercel deployment ready'
++        ],
++        tech: ['Next.js', 'TypeScript', 'CSS', 'JavaScript'],
++        github: 'https://github.com/Sayanthegamer/MuktaVidya',
++        demo: 'https://muktavidya.vercel.app/',
++        image: '/muktavidya-preview.png',
++    },
++    {
++        title: 'CircuitJS',
++        description: 'An interactive, visual, and easy-to-use electronic circuit simulator right in your browser!',
++        longDescription: 'CircuitJS is a web-based app that lets you design and test circuits visually. Whether you are a student learning about electricity for the first time, a hobbyist testing an idea, or just someone who likes playing with digital tools, CircuitJS makes electronics accessible to everyone.',
++        challenges: [
++            'Translating circuit drawing into mathematical matrix equations in real-time.',
++            'Building a high-speed rendering engine using HTML5 Canvas for smooth animations.',
++            'Ensuring the application is mobile-friendly with touch controls.'
++        ],
++        features: [
++            'Drag & Drop Building',
++            'Real-Time Visuals and Current Dots',
++            'Voltage Color Indicators',
++            'Fully Stocked Parts Bin (Batteries, Resistors, LEDs, etc.)',
++            'Advanced Plotter for Voltage/Current over time'
++        ],
++        tech: ['React', 'TypeScript', 'Vite', 'HTML5 Canvas'],
++        github: 'https://github.com/Sayanthegamer/circuitjs',
++        demo: 'https://circuitjs.vercel.app/',
++        image: '/circuitjs-preview.png',
++    },
++    {
++        title: 'Lecture Notes Scribe',
++        description: 'A cloud-native pipeline and extension that processes lecture videos to generate comprehensive study guides.',
++        longDescription: 'A cloud-native, asynchronous pipeline and browser extension that processes lecture videos to generate comprehensive, textbook-quality study guides with LaTeX math equations and inline keyframe illustrations. Uses a decoupled state-machine model to handle long-running video processing tasks in distributed cloud environments.',
++        challenges: [
++            'Handling long-running video processing without blocking the web server.',
++            'Bypassing ephemeral storage loss in cloud environments by uploading to Supabase.',
++            'Preventing zombie subprocesses during FFmpeg execution with strict timeouts.'
++        ],
++        features: [
++            'Asynchronous Video Processing Queue',
++            'Multimodal AI Engine using Gemini API',
++            'Inline Keyframe Extraction via FFmpeg',
++            'Chrome Extension Integration',
++            'Live Status Polling'
++        ],
++        tech: ['Python', 'FastAPI', 'Supabase', 'Google Gemini', 'Chrome Extension API', 'FFmpeg'],
++        github: 'https://github.com/Sayanthegamer/lecture-notes-pipeline',
++        image: '/lecture-notes-preview.png',
++    }
++
+ ];
+
+ const Projects = () => {
+-    const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
++    const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+     const unlockAchievement = useAchievementStore((state) => state.unlockAchievement);
+
+     return (
