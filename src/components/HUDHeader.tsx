@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Award, Volume2, VolumeX, Palette, Menu, X, ChevronDown, CheckCircle2, Lock } from 'lucide-react';
 import { useAchievementStore, achievements, type ActiveTheme } from '../store/useAchievementStore';
+import GlassSurface from './GlassSurface';
+
 
 const HUDHeader = () => {
     const { 
@@ -50,7 +52,8 @@ const HUDHeader = () => {
         <>
             {/* Main HUD Nav bar */}
             <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
-                <nav className="glass-card bg-[var(--theme-bg-card)] rounded-full px-6 py-3 flex items-center justify-between shadow-2xl relative">
+                <GlassSurface borderRadius={9999} backgroundOpacity={0.5} width="100%" height="62px" displace={2} blur={10} brightness={45} className="shadow-2xl">
+                    <div className="w-full px-4 flex items-center justify-between relative bg-transparent">
                     {/* Brand / Logo */}
                     <a href="#" className="font-bold font-serif text-lg tracking-wider text-[var(--theme-text-header)] flex items-center gap-2">
                         SAYAN<span className="text-[var(--theme-accent)]">.</span>
@@ -137,7 +140,8 @@ const HUDHeader = () => {
                             {isMenuOpen ? <X size={16} /> : <Menu size={16} />}
                         </button>
                     </div>
-                </nav>
+                </div>
+            </GlassSurface>
 
                 {/* Mobile Navigation Dropdown */}
                 <AnimatePresence>
