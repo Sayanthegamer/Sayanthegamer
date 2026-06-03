@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+patch_modal.sh
+patch_modal2.py
+patch_projects.py
+patch_projects2.py
+diff.txt
+git_diff.txt
+code_review_message.txt

@@ -104,17 +104,18 @@ const projects: Project[] = [
     },
 
     {
-        title: 'MuktaVidya',
-        description: 'An open-source educational platform or tool.',
-        longDescription: 'MuktaVidya is a Next.js project bootstrapped with create-next-app, providing an educational platform.',
+                title: 'MuktaVidya',
+        description: 'An open-source educational platform designed for seamless learning.',
+        longDescription: 'MuktaVidya is a modern web application built to enhance the educational experience. It leverages the power of Next.js to provide a fast, SEO-friendly, and responsive learning platform.',
         challenges: [
-            'Building a robust Next.js application.',
-            'Setting up a modern frontend environment.'
+            'Building a scalable frontend architecture with Next.js.',
+            'Implementing an intuitive UI/UX for learners.',
+            'Ensuring high performance and accessibility.'
         ],
         features: [
-            'Built with Next.js',
-            'Optimized fonts with next/font',
-            'Vercel deployment ready'
+            'Interactive Learning Modules',
+            'Modern UI with Tailwind CSS',
+            'Optimized Asset Loading'
         ],
         tech: ['Next.js', 'TypeScript', 'CSS', 'JavaScript'],
         github: 'https://github.com/Sayanthegamer/MuktaVidya',

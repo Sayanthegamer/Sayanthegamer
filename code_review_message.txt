@@ -1,1 +1,0 @@
-Added 3 new projects (MuktaVidya, CircuitJS, Lecture Notes Scribe) to `Projects.tsx`. Added placeholder images. Modified `ProjectModal.tsx` to conditionally render the "View Live Demo" button.

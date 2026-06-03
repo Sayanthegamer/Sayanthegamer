@@ -1,17 +1,7 @@
+import type { Project } from "./Projects";
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ExternalLink, Github, CheckCircle2 } from 'lucide-react';
 
-interface Project {
-    title: string;
-    description: string;
-    longDescription?: string;
-    challenges?: string[];
-    features?: string[];
-    tech: string[];
-    github: string;
-    demo?: string;
-    image: string;
-}
 
 interface ProjectModalProps {
     project: Project | null;
