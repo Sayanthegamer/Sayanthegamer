@@ -365,7 +365,6 @@ System customizers:
                                 value={input}
                                 onChange={handleInputChange}
                                 className="flex-1 bg-transparent border-none outline-none text-xs md:text-sm text-[var(--theme-text-header)] placeholder-[var(--theme-text)]/20 font-mono"
-                                autoFocus
                             />
                         </form>
                         <div ref={bottomRef} />
