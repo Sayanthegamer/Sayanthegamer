@@ -52,7 +52,7 @@ const HUDHeader = () => {
         <>
             {/* Main HUD Nav bar */}
             <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
-                <GlassSurface borderRadius={9999} backgroundOpacity={0.5} width="100%" height="62px" displace={2} blur={10} brightness={45} className="shadow-2xl">
+                <GlassSurface borderRadius={9999} backgroundOpacity={0.5} width="100%" height="62px" displace={2} blur={10} brightness={45} className="shadow-2xl" style={{ overflow: 'visible' }}>
                     <div className="w-full px-4 flex items-center justify-between relative bg-transparent">
                     {/* Brand / Logo */}
                     <a href="#" className="font-bold font-serif text-lg tracking-wider text-[var(--theme-text-header)] flex items-center gap-2">
