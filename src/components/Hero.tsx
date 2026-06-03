@@ -15,10 +15,10 @@ const Hero = () => {
         </motion.h2>
 
         <motion.h1
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
-          className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold mb-8 pb-2 bg-clip-text text-transparent bg-gradient-to-b from-slate-100 to-slate-500 font-serif"
+          className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold mb-8 pb-2 text-[#f5f3ef] font-serif tracking-tighter"
         >
           Sayan
         </motion.h1>
@@ -27,9 +27,9 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto font-light leading-relaxed"
+          className="text-xl md:text-2xl text-[#8b8680] max-w-3xl mx-auto font-light leading-relaxed"
         >
-          <span className="text-slate-200 font-normal">Full-stack Developer</span> &bull; <span className="text-slate-200 font-normal">Musician</span> &bull; <span className="text-slate-200 font-normal">AI Enthusiast</span>
+          <span className="text-[#e0ddd7] font-medium">Full-stack Developer</span> <span className="opacity-50 mx-2">/</span> <span className="text-[#e0ddd7] font-medium">Musician</span> <span className="opacity-50 mx-2">/</span> <span className="text-[#e0ddd7] font-medium">AI Enthusiast</span>
         </motion.div>
 
         <motion.div
@@ -38,9 +38,8 @@ const Hero = () => {
           transition={{ duration: 1, delay: 1 }}
           className="mt-16"
         >
-          <a href="#tech-stack" className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white transition-all duration-300 bg-slate-900/50 border border-slate-700 rounded-full hover:bg-slate-800/50 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.3)] overflow-hidden">
+          <a href="#tech-stack" className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white transition-all duration-300 bg-[#c25027] border border-[#c25027] hover:bg-transparent hover:text-[#c25027] rounded-full overflow-hidden">
             <span className="relative z-10">Explore My Journey</span>
-            <div className="absolute inset-0 -z-10 bg-gradient-to-r from-transparent via-primary/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
           </a>
         </motion.div>
       </div>

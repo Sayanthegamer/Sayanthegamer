@@ -183,8 +183,21 @@ const Projects = () => {
                     Featured Projects
                 </motion.h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {projects.map((project, index) => (
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    {projects.map((project, index) => {
+                        const getSpan = (i: number) => {
+                            switch(i % 7) {
+                                case 0: return "md:col-span-8";
+                                case 1: return "md:col-span-4";
+                                case 2: return "md:col-span-4 lg:col-span-5";
+                                case 3: return "md:col-span-8 lg:col-span-7";
+                                case 4: return "md:col-span-6";
+                                case 5: return "md:col-span-6";
+                                case 6: return "md:col-span-12";
+                                default: return "md:col-span-12";
+                            }
+                        };
+                        return (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
@@ -195,43 +208,44 @@ const Projects = () => {
                                 setSelectedProject(project);
                                 unlockAchievement('deep_diver');
                             }}
-                            className="cursor-pointer group"
+                            className={`cursor-pointer group ${getSpan(index)}`}
                         >
-                            <SpotlightCard className="h-full flex flex-col bg-slate-900/50 border-slate-800 overflow-hidden">
-                                <div className="relative h-48 overflow-hidden">
-                                    <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                            <SpotlightCard className="h-full flex flex-col p-2">
+                                <div className="relative h-56 md:h-64 overflow-hidden rounded-lg">
+                                    <div className="absolute inset-0 bg-[#0d0c0c]/40 group-hover:bg-transparent transition-colors duration-500 z-10" />
                                     <img
                                         src={project.image}
                                         alt={project.title}
                                         loading="lazy"
-                                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out"
                                     />
                                 </div>
 
                                 <div className="p-6 flex-1 flex flex-col">
-                                    <h3 className="text-xl font-bold mb-2 text-slate-100 group-hover:text-sky-400 transition-colors">
+                                    <h3 className="text-2xl font-bold mb-3 text-[#f5f3ef] group-hover:text-[#c25027] transition-colors font-serif">
                                         {project.title}
                                     </h3>
-                                    <p className="text-slate-400 text-sm mb-4 flex-1 leading-relaxed">
+                                    <p className="text-[#8b8680] text-sm md:text-base mb-6 flex-1 leading-relaxed">
                                         {project.description}
                                     </p>
 
                                     <div className="flex flex-wrap gap-2 mb-6">
                                         {project.tech.map((t) => (
-                                            <span key={t} className="text-xs px-2 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">
+                                            <span key={t} className="text-xs px-3 py-1 rounded-full bg-[#1e1d1b] text-[#e0ddd7] border border-[rgba(255,255,255,0.04)] shadow-sm">
                                                 {t}
                                             </span>
                                         ))}
                                     </div>
 
-                                    <div className="flex items-center gap-2 text-sky-400 text-sm font-medium mt-auto group/link">
+                                    <div className="flex items-center gap-2 text-[#c25027] text-sm font-medium mt-auto group/link">
                                         View Details
                                         <ArrowRight size={16} className="transform group-hover/link:translate-x-1 transition-transform" />
                                     </div>
                                 </div>
                             </SpotlightCard>
                         </motion.div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
 

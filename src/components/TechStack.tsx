@@ -19,13 +19,13 @@ const techStack = [
 
 const TechStack = () => {
     return (
-        <section id="tech-stack" className="py-20 overflow-hidden bg-slate-950/50">
+        <section id="tech-stack" className="py-20 overflow-hidden bg-[#0d0c0c]">
             <div className="max-w-6xl mx-auto px-4 mb-12 text-center">
                 <motion.h2
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-2xl md:text-3xl font-bold text-slate-200 font-serif"
+                    className="text-2xl md:text-3xl font-bold text-[#f5f3ef] font-serif"
                 >
                     Technologies I Work With
                 </motion.h2>
@@ -33,8 +33,8 @@ const TechStack = () => {
 
             <div className="relative flex flex-col gap-8">
                 {/* Gradient Masks */}
-                <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-slate-950 to-transparent z-10" />
-                <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-slate-950 to-transparent z-10" />
+                <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[#0d0c0c] to-transparent z-10" />
+                <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[#0d0c0c] to-transparent z-10" />
 
                 {/* Row 1: Left to Right */}
                 <div className="flex overflow-hidden group">
@@ -50,10 +50,10 @@ const TechStack = () => {
                         {[...techStack, ...techStack, ...techStack].map((tech, index) => (
                             <div
                                 key={index}
-                                className="flex items-center gap-3 px-6 py-3 rounded-full bg-slate-900/50 border border-slate-800 whitespace-nowrap"
+                                className="flex items-center gap-3 px-6 py-3 rounded-full bg-[#1e1d1b] border border-[rgba(255,255,255,0.06)] whitespace-nowrap shadow-sm"
                             >
                                 <tech.icon className={`w-5 h-5 ${tech.color}`} />
-                                <span className="text-slate-300 font-medium">{tech.name}</span>
+                                <span className="text-[#e0ddd7] font-medium">{tech.name}</span>
                             </div>
                         ))}
                     </motion.div>
@@ -73,10 +73,10 @@ const TechStack = () => {
                         {[...techStack, ...techStack, ...techStack].reverse().map((tech, index) => (
                             <div
                                 key={index}
-                                className="flex items-center gap-3 px-6 py-3 rounded-full bg-slate-900/50 border border-slate-800 whitespace-nowrap"
+                                className="flex items-center gap-3 px-6 py-3 rounded-full bg-[#1e1d1b] border border-[rgba(255,255,255,0.06)] whitespace-nowrap shadow-sm"
                             >
                                 <tech.icon className={`w-5 h-5 ${tech.color}`} />
-                                <span className="text-slate-300 font-medium">{tech.name}</span>
+                                <span className="text-[#e0ddd7] font-medium">{tech.name}</span>
                             </div>
                         ))}
                     </motion.div>

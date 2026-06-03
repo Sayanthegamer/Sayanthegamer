@@ -75,16 +75,19 @@ const ContactTerminal = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     onViewportEnter={() => inputRef.current?.focus()}
-                    className="rounded-xl overflow-hidden bg-slate-950 border border-slate-800 shadow-2xl font-mono text-sm md:text-base"
+                    className="relative rounded-xl overflow-hidden bg-[#0a0a0a] border border-[rgba(255,255,255,0.06)] shadow-2xl font-mono text-sm md:text-base"
                 >
+                    {/* Scanline Overlay */}
+                    <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] opacity-20" />
+                    
                     {/* Terminal Header */}
-                    <div className="bg-slate-900 px-4 py-2 flex items-center justify-between border-b border-slate-800">
+                    <div className="bg-[#141312] px-4 py-2 flex items-center justify-between border-b border-[rgba(255,255,255,0.06)] relative z-20">
                         <div className="flex gap-2">
                             <div className="w-3 h-3 rounded-full bg-red-500" />
                             <div className="w-3 h-3 rounded-full bg-yellow-500" />
                             <div className="w-3 h-3 rounded-full bg-green-500" />
                         </div>
-                        <div className="flex items-center gap-2 text-slate-400 text-xs whitespace-nowrap overflow-hidden text-ellipsis min-w-0">
+                        <div className="flex items-center gap-2 text-[#8b8680] text-xs whitespace-nowrap overflow-hidden text-ellipsis min-w-0">
                             <Terminal size={14} className="shrink-0" />
                             <span className="truncate">visitor@sayan-portfolio:~</span>
                         </div>
@@ -93,16 +96,16 @@ const ContactTerminal = () => {
 
                     {/* Terminal Body */}
                     <div
-                        className="p-4 md:p-6 h-[300px] md:h-[400px] overflow-y-auto cursor-text"
+                        className="p-4 md:p-6 h-[300px] md:h-[400px] overflow-y-auto cursor-text relative z-20 scrollbar-hide"
                         onClick={() => inputRef.current?.focus()}
                     >
                         <div className="space-y-2">
                             {history.map((entry, i) => (
-                                <div key={i} className={`${entry.type === 'input' ? 'text-slate-100' : 'text-slate-400'}`}>
+                                <div key={i} className={`${entry.type === 'input' ? 'text-[#f5f3ef]' : 'text-[#8b8680]'}`}>
                                     {entry.type === 'input' ? (
                                         <span className="flex gap-2">
-                                            <span className="text-emerald-400">➜</span>
-                                            <span className="text-sky-400">~</span>
+                                            <span className="text-[#c25027]">➜</span>
+                                            <span className="text-[#8b8680]">~</span>
                                             <span>{entry.content}</span>
                                         </span>
                                     ) : (
@@ -113,23 +116,23 @@ const ContactTerminal = () => {
                         </div>
 
                         <form onSubmit={handleSubmit} className="mt-2 flex gap-2 items-center">
-                            <span className="text-emerald-400">➜</span>
-                            <span className="text-sky-400">~</span>
+                            <span className="text-[#c25027]">➜</span>
+                            <span className="text-[#8b8680]">~</span>
                             <input
                                 ref={inputRef}
                                 type="text"
                                 aria-label="Terminal command input"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
-                                className="flex-1 bg-transparent border-none outline-none text-base md:text-sm text-slate-100 placeholder-slate-600"
+                                className="flex-1 bg-transparent border-none outline-none text-base md:text-sm text-[#f5f3ef] placeholder-[#8b8680]/50"
                             />
                         </form>
                         <div ref={bottomRef} />
                     </div>
                 </motion.div>
 
-                <p className="text-center text-slate-500 text-sm mt-8">
-                    Prefer standard contact? <a href="mailto:sayanbnk2008@gmail.com" className="text-sky-400 hover:underline">Email me directly</a>
+                <p className="text-center text-[#8b8680] text-sm mt-8">
+                    Prefer standard contact? <a href="mailto:sayanbnk2008@gmail.com" className="text-[#c25027] hover:underline">Email me directly</a>
                 </p>
             </div>
         </section>
