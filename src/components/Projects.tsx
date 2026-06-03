@@ -104,20 +104,21 @@ const projects: Project[] = [
     },
 
     {
-                title: 'MuktaVidya',
-        description: 'An open-source educational platform designed for seamless learning.',
-        longDescription: 'MuktaVidya is a modern web application built to enhance the educational experience. It leverages the power of Next.js to provide a fast, SEO-friendly, and responsive learning platform.',
+                        title: 'MuktaVidya',
+        description: 'A lightweight, privacy-conscious platform for generating and rendering AI-powered mathematical solutions.',
+        longDescription: 'Muktavidya is built to provide seamless, accurate, and beautifully rendered math solutions. By leveraging the Gemini API and a modern web stack, it offers a responsive and robust experience. The application relies on anonymous architecture, avoiding heavy user identity providers. Everything is stored locally, ensuring complete ownership of your data.',
         challenges: [
-            'Building a scalable frontend architecture with Next.js.',
-            'Implementing an intuitive UI/UX for learners.',
-            'Ensuring high performance and accessibility.'
+            'Implementing rate-limiting via browser-driven validation combined with server-side IP tracking.',
+            'Using IndexedDB for local state management without heavy third-party authentication.',
+            'Rendering beautiful mathematical typography with KaTeX and custom Markdown.'
         ],
         features: [
-            'Interactive Learning Modules',
-            'Modern UI with Tailwind CSS',
-            'Optimized Asset Loading'
+            'AI-Powered Math Problem Solving',
+            'KaTeX & React Markdown Integration',
+            'Privacy-First Architecture (IndexedDB)',
+            'Strict Dark Mode UI with Tailwind CSS v4'
         ],
-        tech: ['Next.js', 'TypeScript', 'CSS', 'JavaScript'],
+        tech: ['Next.js 16', 'TypeScript', 'Tailwind CSS v4', 'Google Gemini API', 'KaTeX', 'IndexedDB'],
         github: 'https://github.com/Sayanthegamer/MuktaVidya',
         demo: 'https://muktavidya.vercel.app/',
         image: '/muktavidya-preview.png',
