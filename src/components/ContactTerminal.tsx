@@ -16,7 +16,8 @@ const ContactTerminal = () => {
         activeTheme, 
         setTheme, 
         unlockedAchievements,
-        isMuted
+        isMuted,
+        setGlassOpen
     } = useAchievementStore();
 
     const [history, setHistory] = useState<HistoryEntry[]>([
@@ -212,6 +213,7 @@ const ContactTerminal = () => {
 System customizers:
   theme [name] Swap layout theme (aero, cyberpunk, retro, ocean)
   matrix       Open matrix digital rain screensaver
+  glass [mode] Open 3D Fluid Glass lab (lens, cube, bar)
   play         Boot retro security & coding quiz
   reset        Wipe achievements cache
   clear        Flush terminal logs`
@@ -246,6 +248,12 @@ System customizers:
             newHistory.push({ type: 'raw', content: 'Q1: What does REST stand for in API designs?\n  1) Representational State Transfer\n  2) Reactive Engine State Trigger\n  3) Relational State Terminal\nType [1, 2, or 3]:' });
             setGameStage('q1');
             setCorrectAnswers(0);
+            unlockAchievement('hacker');
+        } else if (mainCmd === 'glass') {
+            const mode = (parts[1] || 'lens') as any;
+            const validMode = ['lens', 'cube', 'bar'].includes(mode) ? mode : 'lens';
+            newHistory.push({ type: 'output', content: `Opening 3D Fluid Glass Refraction Lab [Mode: ${validMode.toUpperCase()}]...` });
+            setGlassOpen(true, validMode);
             unlockAchievement('hacker');
         } else if (mainCmd === 'theme') {
             const targetTheme = parts[1] as ActiveTheme;
