@@ -73,12 +73,14 @@ interface AchievementStore {
     selectedTechFilter: string[];
     isGlassOpen: boolean;
     glassMode: GlassMode;
+    isBendsOpen: boolean;
     unlockAchievement: (id: AchievementId) => void;
     setTheme: (theme: ActiveTheme) => void;
     setMuted: (muted: boolean) => void;
     toggleTechFilter: (tech: string) => void;
     clearTechFilter: () => void;
     setGlassOpen: (open: boolean, mode?: GlassMode) => void;
+    setBendsOpen: (open: boolean) => void;
     resetAchievements: () => void;
     clearToast: () => void;
 }
@@ -93,6 +95,7 @@ export const useAchievementStore = create<AchievementStore>()(
             selectedTechFilter: [],
             isGlassOpen: false,
             glassMode: 'lens',
+            isBendsOpen: false,
             unlockAchievement: (id: AchievementId) => {
                 const { unlockedAchievements, isMuted } = get();
                 if (!unlockedAchievements.includes(id)) {
@@ -149,8 +152,11 @@ export const useAchievementStore = create<AchievementStore>()(
             setGlassOpen: (open: boolean, mode: GlassMode = 'lens') => {
                 set({ isGlassOpen: open, glassMode: mode });
             },
+            setBendsOpen: (open: boolean) => {
+                set({ isBendsOpen: open });
+            },
             resetAchievements: () => {
-                set({ unlockedAchievements: [], activeTheme: 'aero', selectedTechFilter: [], isGlassOpen: false });
+                set({ unlockedAchievements: [], activeTheme: 'aero', selectedTechFilter: [], isGlassOpen: false, isBendsOpen: false });
                 document.body.className = 'theme-aero';
                 console.log('Achievements and theme reset');
             },

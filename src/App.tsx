@@ -10,6 +10,7 @@ import ContactTerminal from './components/ContactTerminal';
 import Footer from './components/Footer';
 import Background from './components/Background';
 import FluidGlass from './components/FluidGlass';
+import ColorBends from './components/ColorBends';
 
 import { useAchievementStore, type GlassMode } from './store/useAchievementStore';
 import AchievementToast from './components/AchievementToast';
@@ -17,7 +18,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function App() {
-  const { isGlassOpen, glassMode, setGlassOpen, isMuted } = useAchievementStore();
+  const { isGlassOpen, glassMode, setGlassOpen, isMuted, isBendsOpen, setBendsOpen, activeTheme } = useAchievementStore();
 
   const playClick = () => {
     if (!isMuted) {
@@ -112,6 +113,79 @@ function App() {
                   {/* Visual Drag Instruction helper */}
                   <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[9px] font-mono tracking-widest text-white/30 pointer-events-none uppercase">
                     Drag object to move // Scroll to zoom & reveal underlying cards
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* ColorBends Easter Egg Modal */}
+        <AnimatePresence>
+          {isBendsOpen && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-lg"
+            >
+              {/* Modal Container */}
+              <motion.div 
+                initial={{ scale: 0.95, y: 20 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.95, y: 20 }}
+                className="relative w-full max-w-4xl h-[80vh] rounded-3xl glass-card bg-[#050505]/95 border border-[var(--theme-border)] shadow-2xl flex flex-col overflow-hidden"
+              >
+                {/* Header Controls */}
+                <div className="p-4 md:px-8 md:py-5 border-b border-[var(--theme-border)] flex items-center justify-between z-10 bg-black/40">
+                  <div>
+                    <h3 className="text-base md:text-lg font-serif font-bold text-[var(--theme-text-header)]">
+                      WebGL ColorBends Playground
+                    </h3>
+                    <p className="text-[10px] md:text-xs font-mono text-[var(--theme-text)]/40 tracking-wider">
+                      Interactive shader art. Hover/Move pointer to warp waves.
+                    </p>
+                  </div>
+
+                  {/* Close button */}
+                  <button 
+                    onClick={() => { setBendsOpen(false); playClick(); }}
+                    aria-label="Exit ColorBends Playground"
+                    className="w-9 h-9 rounded-full border border-[var(--theme-border)] flex items-center justify-center text-[var(--theme-text)] hover:border-[var(--theme-accent)] hover:text-[var(--theme-text-header)] transition-all bg-transparent cursor-pointer"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+
+                {/* Canvas Render viewport */}
+                <div className="flex-1 w-full h-full relative bg-black/10">
+                  <ColorBends 
+                    colors={
+                      activeTheme === 'cyberpunk'
+                        ? ['#ff007f', '#00f0ff', '#050505']
+                        : activeTheme === 'retro'
+                        ? ['#39ff14', '#ffb000', '#050805']
+                        : activeTheme === 'ocean'
+                        ? ['#00b4d8', '#0077b6', '#030306']
+                        : ['#c25027', '#8b8680', '#1e1d1b']
+                    }
+                    rotation={90}
+                    speed={0.25}
+                    scale={1}
+                    frequency={1}
+                    warpStrength={1.2}
+                    mouseInfluence={1.2}
+                    noise={0.15}
+                    parallax={0.5}
+                    iterations={1}
+                    intensity={1.5}
+                    bandWidth={6}
+                    transparent
+                  />
+                  
+                  {/* Interactive Helper Text */}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[9px] font-mono tracking-widest text-white/30 pointer-events-none uppercase">
+                    Move your pointer to warp the color waves
                   </div>
                 </div>
               </motion.div>
