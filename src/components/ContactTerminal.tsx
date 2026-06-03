@@ -18,7 +18,7 @@ const ContactTerminal = () => {
         unlockedAchievements,
         isMuted,
         setGlassOpen,
-        setBendsOpen
+        setBeamsOpen
     } = useAchievementStore();
 
     const [history, setHistory] = useState<HistoryEntry[]>([
@@ -215,7 +215,7 @@ System customizers:
   theme [name] Swap layout theme (aero, cyberpunk, retro, ocean)
   matrix       Open matrix digital rain screensaver
   glass [mode] Open 3D Fluid Glass lab (lens, cube, bar)
-  bends        Toggle interactive WebGL ColorBends modal
+  beams        Toggle interactive 3D light beams playground
   play         Boot retro security & coding quiz
   reset        Wipe achievements cache
   clear        Flush terminal logs`
@@ -257,9 +257,9 @@ System customizers:
             newHistory.push({ type: 'output', content: `Opening 3D Fluid Glass Refraction Lab [Mode: ${validMode.toUpperCase()}]...` });
             setGlassOpen(true, validMode);
             unlockAchievement('hacker');
-        } else if (mainCmd === 'bends') {
-            newHistory.push({ type: 'output', content: 'Opening interactive WebGL ColorBends modal...' });
-            setBendsOpen(true);
+        } else if (mainCmd === 'beams') {
+            newHistory.push({ type: 'output', content: 'Opening interactive 3D light beams playground...' });
+            setBeamsOpen(true);
             unlockAchievement('hacker');
         } else if (mainCmd === 'theme') {
             const targetTheme = parts[1] as ActiveTheme;
