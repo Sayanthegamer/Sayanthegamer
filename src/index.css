@@ -1,8 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600&family=Sora:wght@300;400;500;600;700&family=Unbounded:wght@400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Sora:wght@300;400;500;600;700&family=Unbounded:wght@400;500;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Custom Monospace font override */
+code, pre, kbd, samp, .font-mono, [class*="font-mono"] {
+  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+}
 
 /* Theme Variable Bindings */
 :root {
@@ -156,6 +161,18 @@ a:hover {
 .glass-card:hover {
   border-color: var(--theme-border-hover);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4), 0 0 15px var(--theme-glow);
+}
+
+@media (max-width: 768px) {
+  .glass-card {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(var(--theme-bg-card), 0.95);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2) !important;
+  }
+  .glass-card:hover {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2) !important;
+  }
 }
 
 .section {
