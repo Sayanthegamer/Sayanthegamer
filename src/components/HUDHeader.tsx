@@ -54,7 +54,7 @@ const HUDHeader = () => {
             <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
                 <GlassSurface 
                     borderRadius={9999} 
-                    backgroundOpacity={0.6} 
+                    backgroundOpacity={0.02} 
                     width="100%" 
                     height="62px" 
                     displace={4} 
