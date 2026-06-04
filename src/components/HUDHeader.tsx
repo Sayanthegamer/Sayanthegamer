@@ -54,17 +54,17 @@ const HUDHeader = () => {
             <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
                 <GlassSurface 
                     borderRadius={9999} 
-                    backgroundOpacity={0.5} 
+                    backgroundOpacity={0.6} 
                     width="100%" 
                     height="62px" 
-                    displace={1} 
-                    blur={12} 
-                    brightness={50} 
-                    distortionScale={-25} 
+                    displace={4} 
+                    blur={8} 
+                    brightness={45} 
+                    distortionScale={-55} 
                     redOffset={0} 
-                    greenOffset={2} 
-                    blueOffset={4} 
-                    borderWidth={0.02} 
+                    greenOffset={3} 
+                    blueOffset={6} 
+                    borderWidth={0.12} 
                     className="shadow-2xl" 
                     style={{ overflow: 'visible' }}
                 >

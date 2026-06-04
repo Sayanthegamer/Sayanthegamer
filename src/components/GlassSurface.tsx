@@ -1,12 +1,34 @@
-// @ts-nocheck
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState, useRef, useId } from 'react';
+import React, { useEffect, useState, useRef, useId } from 'react';
 import './GlassSurface.css';
 
-const GlassSurface = ({
+interface GlassSurfaceProps {
+  children?: React.ReactNode;
+  width?: number | string;
+  height?: number | string;
+  borderRadius?: number;
+  borderWidth?: number;
+  brightness?: number;
+  opacity?: number;
+  blur?: number;
+  displace?: number;
+  backgroundOpacity?: number;
+  saturation?: number;
+  distortionScale?: number;
+  redOffset?: number;
+  greenOffset?: number;
+  blueOffset?: number;
+  xChannel?: 'R' | 'G' | 'B';
+  yChannel?: 'R' | 'G' | 'B';
+  mixBlendMode?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+const GlassSurface: React.FC<GlassSurfaceProps> = ({
   children,
-  width = '100%',
-  height = '100%',
+  width = 200,
+  height = 80,
   borderRadius = 20,
   borderWidth = 0.07,
   brightness = 50,
@@ -32,12 +54,12 @@ const GlassSurface = ({
 
   const [svgSupported, setSvgSupported] = useState(false);
 
-  const containerRef = useRef(null);
-  const feImageRef = useRef(null);
-  const redChannelRef = useRef(null);
-  const greenChannelRef = useRef(null);
-  const blueChannelRef = useRef(null);
-  const gaussianBlurRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const feImageRef = useRef<SVGFEImageElement>(null);
+  const redChannelRef = useRef<SVGFEDisplacementMapElement>(null);
+  const greenChannelRef = useRef<SVGFEDisplacementMapElement>(null);
+  const blueChannelRef = useRef<SVGFEDisplacementMapElement>(null);
+  const gaussianBlurRef = useRef<SVGFEGaussianBlurElement>(null);
 
   const generateDisplacementMap = () => {
     const rect = containerRef.current?.getBoundingClientRect();
@@ -152,7 +174,7 @@ const GlassSurface = ({
     '--glass-frost': backgroundOpacity,
     '--glass-saturation': saturation,
     '--filter-id': `url(#${filterId})`
-  };
+  } as React.CSSProperties;
 
   return (
     <div
