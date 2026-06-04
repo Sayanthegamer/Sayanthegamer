@@ -171,6 +171,14 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
     width: typeof width === 'number' ? `${width}px` : width,
     height: typeof height === 'number' ? `${height}px` : height,
     borderRadius: `${borderRadius}px`,
+    position: 'relative'
+  } as React.CSSProperties;
+
+  const bgStyle = {
+    position: 'absolute',
+    inset: 0,
+    borderRadius: 'inherit',
+    pointerEvents: 'none',
     '--glass-frost': backgroundOpacity,
     '--glass-saturation': saturation,
     '--filter-id': `url(#${filterId})`
@@ -179,9 +187,15 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`glass-surface ${svgSupported ? 'glass-surface--svg' : 'glass-surface--fallback'} ${className}`}
+      className={`glass-surface ${className}`}
       style={containerStyle}
     >
+      {/* Isolated background layer to prevent Chromium backdrop-filter text blur bug */}
+      <div 
+        className={svgSupported ? 'glass-surface--svg' : 'glass-surface--fallback'} 
+        style={bgStyle}
+      />
+
       <svg className="glass-surface__filter" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id={filterId} colorInterpolationFilters="sRGB" x="0%" y="0%" width="100%" height="100%">
