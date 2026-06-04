@@ -65,6 +65,7 @@ const HUDHeader = () => {
                     greenOffset={3} 
                     blueOffset={6} 
                     borderWidth={0.12} 
+                    yChannel="B"
                     className="absolute inset-0 shadow-2xl pointer-events-none" 
                     style={{ overflow: 'visible' }}
                 />
