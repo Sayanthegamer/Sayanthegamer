@@ -51,12 +51,12 @@ const HUDHeader = () => {
     return (
         <>
             {/* Main HUD Nav bar */}
-            <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
+            <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl h-[62px]">
                 <GlassSurface 
                     borderRadius={9999} 
                     backgroundOpacity={0.6} 
                     width="100%" 
-                    height="62px" 
+                    height="100%" 
                     displace={4} 
                     blur={8} 
                     brightness={45} 
@@ -65,10 +65,11 @@ const HUDHeader = () => {
                     greenOffset={3} 
                     blueOffset={6} 
                     borderWidth={0.12} 
-                    className="shadow-2xl" 
+                    className="absolute inset-0 shadow-2xl pointer-events-none" 
                     style={{ overflow: 'visible' }}
-                >
-                    <div className="w-full px-4 flex items-center justify-between relative bg-transparent">
+                />
+
+                <div className="w-full h-full px-4 flex items-center justify-between relative bg-transparent z-10">
                     {/* Brand / Logo */}
                     <a href="#" className="font-bold font-serif text-lg tracking-wider text-[var(--theme-text-header)] flex items-center gap-2">
                         SAYAN<span className="text-[var(--theme-accent)]">.</span>
@@ -156,7 +157,6 @@ const HUDHeader = () => {
                         </button>
                     </div>
                 </div>
-            </GlassSurface>
 
                 {/* Mobile Navigation Dropdown */}
                 <AnimatePresence>
