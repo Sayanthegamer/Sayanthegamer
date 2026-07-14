@@ -2,7 +2,7 @@
 
 ## 👨‍💻 Developer & Creative Thinker
 
-Welcome to my corner of the internet! I'm a passionate developer dedicated to building immersive and interactive web experiences. I believe that software shouldn't just function—it should engage and delight.
+Welcome to my corner of the internet! I'm a passionate developer dedicated to building digital projects. I believe that software shouldn't just function, it should engage and delight.
 
 ---
 
