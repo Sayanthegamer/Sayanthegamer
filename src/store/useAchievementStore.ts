@@ -7,10 +7,8 @@ export type AchievementId =
   | 'hacker' 
   | 'deep_diver' 
   | 'synthesizer' 
-  | 'cyber_champ' 
-  | 'theme_shifter';
+  | 'cyber_champ';
 
-export type ActiveTheme = 'aero' | 'cyberpunk' | 'retro' | 'ocean';
 export type GlassMode = 'lens' | 'cube' | 'bar';
 
 export interface Achievement {
@@ -57,25 +55,17 @@ export const achievements: Record<AchievementId, Achievement> = {
         description: 'Solved the terminal security & trivia quiz.',
         icon: '🧠',
     },
-    theme_shifter: {
-        id: 'theme_shifter',
-        title: 'Theme Shifter',
-        description: 'Changed the visual theme of the site.',
-        icon: '🎨',
-    },
 };
 
 interface AchievementStore {
     unlockedAchievements: AchievementId[];
     currentToast: Achievement | null;
-    activeTheme: ActiveTheme;
     isMuted: boolean;
     selectedTechFilter: string[];
     isGlassOpen: boolean;
     glassMode: GlassMode;
     isBeamsOpen: boolean;
     unlockAchievement: (id: AchievementId) => void;
-    setTheme: (theme: ActiveTheme) => void;
     setMuted: (muted: boolean) => void;
     toggleTechFilter: (tech: string) => void;
     clearTechFilter: () => void;
@@ -90,7 +80,6 @@ export const useAchievementStore = create<AchievementStore>()(
         (set, get) => ({
             unlockedAchievements: [],
             currentToast: null,
-            activeTheme: 'aero',
             isMuted: false,
             selectedTechFilter: [],
             isGlassOpen: false,
@@ -121,17 +110,7 @@ export const useAchievementStore = create<AchievementStore>()(
                     }, 4000);
                 }
             },
-            setTheme: (theme: ActiveTheme) => {
-                const currentTheme = get().activeTheme;
-                if (currentTheme !== theme) {
-                    set({ activeTheme: theme });
-                    get().unlockAchievement('theme_shifter');
-                    
-                    // Body element class sync for tailwind styling triggers
-                    const body = document.body;
-                    body.className = `theme-${theme}`;
-                }
-            },
+
             setMuted: (muted: boolean) => {
                 set({ isMuted: muted });
             },
@@ -156,9 +135,8 @@ export const useAchievementStore = create<AchievementStore>()(
                 set({ isBeamsOpen: open });
             },
             resetAchievements: () => {
-                set({ unlockedAchievements: [], activeTheme: 'aero', selectedTechFilter: [], isGlassOpen: false, isBeamsOpen: false });
-                document.body.className = 'theme-aero';
-                console.log('Achievements and theme reset');
+                set({ unlockedAchievements: [], selectedTechFilter: [], isGlassOpen: false, isBeamsOpen: false });
+                console.log('Achievements reset');
             },
             clearToast: () => {
                 set({ currentToast: null });
@@ -168,7 +146,6 @@ export const useAchievementStore = create<AchievementStore>()(
             name: 'sayan-achievements-v2', // localStorage key
             partialize: (state) => ({ 
                 unlockedAchievements: state.unlockedAchievements,
-                activeTheme: state.activeTheme,
                 isMuted: state.isMuted
             }),
         }

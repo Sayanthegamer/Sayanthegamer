@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=Sora:wght@300;400;500;600;700&family=Unbounded:wght@400;500;700;800;900&display=swap');
+/* Custom easing following Emil Kowalski principles */
+:root {
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
 
 @tailwind base;
 @tailwind components;
@@ -6,24 +11,23 @@
 
 /* Custom Monospace font override */
 code, pre, kbd, samp, .font-mono, [class*="font-mono"] {
-  font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
 }
 
-/* Theme Variable Bindings */
+/* Theme Variable Bindings - Strict Monochrome + Single Accent */
 :root {
-  /* Default: Aero (Tactile Dark Slate / Rust Accent) */
-  --theme-bg: #0d0c0c;
-  --theme-bg-card: rgba(24, 23, 22, 0.7);
-  --theme-text: #e0ddd7;
-  --theme-text-header: #f5f3ef;
-  --theme-accent: #c25027;
-  --theme-accent-rgb: 194, 80, 39;
-  --theme-border: rgba(255, 255, 255, 0.06);
-  --theme-border-hover: rgba(194, 80, 39, 0.3);
-  --theme-glow: rgba(194, 80, 39, 0.15);
-  --theme-scrollbar-bg: #1e1d1b;
+  --theme-bg: #09090b; /* Zinc 950 */
+  --theme-bg-card: rgba(24, 24, 27, 0.7); /* Zinc 900 */
+  --theme-text: #a1a1aa; /* Zinc 400 */
+  --theme-text-header: #fafafa; /* Zinc 50 */
+  --theme-accent: #00b4d8; /* Electric Blue Accent */
+  --theme-accent-rgb: 0, 180, 216;
+  --theme-border: rgba(255, 255, 255, 0.08);
+  --theme-border-hover: rgba(255, 255, 255, 0.15);
+  --theme-glow: transparent; /* Glows removed for anti-slop */
+  --theme-scrollbar-bg: #18181b;
   
-  font-family: 'Sora', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
   font-weight: 400;
   text-rendering: optimizeLegibility;
@@ -31,47 +35,7 @@ code, pre, kbd, samp, .font-mono, [class*="font-mono"] {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Cyberpunk Theme (Deep Black / Cyan & Magenta Glows) */
-body.theme-cyberpunk, .theme-cyberpunk {
-  --theme-bg: #030303;
-  --theme-bg-card: rgba(10, 10, 12, 0.85);
-  --theme-text: #d8f3fd;
-  --theme-text-header: #00f0ff;
-  --theme-accent: #ff007f;
-  --theme-accent-rgb: 255, 0, 127;
-  --theme-border: rgba(0, 240, 255, 0.15);
-  --theme-border-hover: rgba(255, 0, 127, 0.4);
-  --theme-glow: rgba(255, 0, 127, 0.2);
-  --theme-scrollbar-bg: #0e0e12;
-}
 
-/* Retro Terminal Theme (Phosphor Green / Amber Accent) */
-body.theme-retro, .theme-retro {
-  --theme-bg: #050805;
-  --theme-bg-card: rgba(8, 14, 8, 0.9);
-  --theme-text: #39ff14;
-  --theme-text-header: #39ff14;
-  --theme-accent: #ffb000;
-  --theme-accent-rgb: 255, 176, 0;
-  --theme-border: rgba(57, 255, 20, 0.2);
-  --theme-border-hover: rgba(255, 176, 0, 0.5);
-  --theme-glow: rgba(57, 255, 20, 0.15);
-  --theme-scrollbar-bg: #0a100a;
-}
-
-/* Deep Ocean Theme (Abyssal Teal / Aqua Accent) */
-body.theme-ocean, .theme-ocean {
-  --theme-bg: #010d18;
-  --theme-bg-card: rgba(3, 23, 40, 0.75);
-  --theme-text: #add5f7;
-  --theme-text-header: #e3f2fd;
-  --theme-accent: #00b4d8;
-  --theme-accent-rgb: 0, 180, 216;
-  --theme-border: rgba(0, 180, 216, 0.15);
-  --theme-border-hover: rgba(0, 180, 216, 0.45);
-  --theme-glow: rgba(0, 180, 216, 0.2);
-  --theme-scrollbar-bg: #021a2c;
-}
 
 * {
   margin: 0;
@@ -107,9 +71,9 @@ body::after {
 
 /* Typographic rules conforming to Impeccable guidelines */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Unbounded', system-ui, sans-serif;
+  font-family: 'Satoshi', system-ui, sans-serif;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   color: var(--theme-text-header);
   text-wrap: balance;
   transition: color 0.4s ease;
@@ -164,6 +128,11 @@ a:hover {
 }
 
 @media (max-width: 768px) {
+  /* Kill CRT grain overlay on mobile — saves ~15-20fps */
+  body::after {
+    display: none !important;
+  }
+
   .glass-card {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -172,6 +141,11 @@ a:hover {
   }
   .glass-card:hover {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  /* Disable expensive transitions on mobile for smoother scrolling */
+  * {
+    transition-duration: 0.15s !important;
   }
 }
 
@@ -236,4 +210,22 @@ a:hover {
     rgba(0, 0, 0, 0.25) 50%
   );
   background-size: 100% 4px;
+}
+
+/* Respect reduced-motion preference — accessibility + battery life */
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    display: none !important;
+  }
+
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
 }

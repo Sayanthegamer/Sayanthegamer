@@ -19,6 +19,25 @@ export interface Project {
 
 const projects: Project[] = [
     {
+        title: 'Digital Logic Simulator',
+        description: 'A high-performance digital logic circuit simulator built in Rust.',
+        longDescription: 'A blazingly fast digital logic simulator built entirely in Rust. It allows users to build complex logic gates, test truth tables, and simulate clock cycles with near-native performance.',
+        challenges: [
+            'Implementing an efficient graph-based evaluation engine for logic gates.',
+            'Ensuring high-performance simulation capable of thousands of ticks per second.',
+            'Compiling the simulation engine to WebAssembly for browser compatibility.'
+        ],
+        features: [
+            'NAND / NOR / XOR Gate Simulation',
+            'Clock Cycle Stepping',
+            'Truth Table Generation',
+            'High-Performance Rust Engine'
+        ],
+        tech: ['Rust', 'WebAssembly', 'TypeScript'],
+        github: 'https://github.com/Sayanthegamer/digital-logic-rust',
+        image: '/rust_logic_simulator.png',
+    },
+    {
         title: 'Kron0',
         description: 'A modern, neo-glassmorphism inspired productivity companion designed for students.',
         longDescription: 'Kron0 combines a powerful focus timer, a smart weekly schedule managed via Drag & Drop or simple clicks, and detailed productivity insights—all in a beautifully animated interface.',
@@ -191,20 +210,57 @@ const Projects = () => {
     return (
         <section id="projects" className="py-20 relative flex flex-col justify-center items-center w-full">
             <div className="w-full max-w-6xl px-4 md:px-6">
-                <div className="text-center mb-16">
+                <div className="text-center mb-12">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-3xl md:text-5xl font-bold text-[var(--theme-text-header)] font-serif mb-4"
+                        className="text-4xl md:text-5xl font-bold text-[var(--theme-text-header)] tracking-tight mb-8"
                     >
-                        Featured Modules
+                        Selected Work
                     </motion.h2>
-                    {selectedTechFilter.length > 0 && (
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--theme-accent)] bg-[rgba(var(--theme-accent-rgb),0.05)] text-xs font-mono text-[var(--theme-accent)]">
-                            <span>FILTERED_BY: {selectedTechFilter.join(', ')}</span>
-                        </div>
-                    )}
+
+                    {/* Minimal Inline Tech Filter */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="flex flex-wrap items-center justify-center gap-2 max-w-4xl mx-auto"
+                    >
+                        <button 
+                            onClick={() => { clearTechFilter(); playClick(); }}
+                            className={`px-4 py-1.5 rounded-full text-xs font-mono transition-colors border ${
+                                selectedTechFilter.length === 0 
+                                ? 'bg-[var(--theme-text-header)] text-[var(--theme-bg)] border-transparent' 
+                                : 'bg-transparent text-[var(--theme-text)]/60 border-[var(--theme-border)] hover:text-[var(--theme-text-header)] hover:border-[var(--theme-text)]/30'
+                            }`}
+                        >
+                            All
+                        </button>
+                        {Array.from(new Set(projects.flatMap(p => p.tech))).sort().map(tech => {
+                            const isSelected = selectedTechFilter.includes(tech);
+                            return (
+                                <button
+                                    key={tech}
+                                    onClick={() => { 
+                                        if (selectedTechFilter.includes(tech) && selectedTechFilter.length === 1) {
+                                            clearTechFilter();
+                                        } else {
+                                            useAchievementStore.getState().toggleTechFilter(tech);
+                                        }
+                                        playClick(); 
+                                    }}
+                                    className={`px-4 py-1.5 rounded-full text-xs font-mono transition-colors border ${
+                                        isSelected 
+                                        ? 'bg-[var(--theme-text-header)] text-[var(--theme-bg)] border-transparent' 
+                                        : 'bg-transparent text-[var(--theme-text)]/60 border-[var(--theme-border)] hover:text-[var(--theme-text-header)] hover:border-[var(--theme-text)]/30'
+                                    }`}
+                                >
+                                    {tech}
+                                </button>
+                            );
+                        })}
+                    </motion.div>
                 </div>
 
                 <motion.div 
@@ -229,10 +285,10 @@ const Projects = () => {
                                 <motion.div
                                     layout
                                     key={project.title}
-                                    initial={{ opacity: 0, scale: 0.95 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: 0.35 }}
+                                    initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                                    transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
                                     className={`${getSpan(index)} h-[380px] md:h-[450px]`}
                                 >
                                     <SpotlightCard 
@@ -246,6 +302,8 @@ const Projects = () => {
                                             <img
                                                 src={project.image}
                                                 alt={project.title}
+                                                loading="lazy"
+                                                decoding="async"
                                                 className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                                             />
                                         </div>

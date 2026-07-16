@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Terminal as TerminalIcon } from 'lucide-react';
-import { useAchievementStore, type ActiveTheme } from '../store/useAchievementStore';
+import { useAchievementStore } from '../store/useAchievementStore';
 import BorderGlow from './BorderGlow';
 
 interface HistoryEntry {
@@ -14,8 +14,6 @@ const ContactTerminal = () => {
     const { 
         unlockAchievement, 
         resetAchievements, 
-        activeTheme, 
-        setTheme, 
         unlockedAchievements,
         isMuted,
         setGlassOpen,
@@ -65,7 +63,7 @@ const ContactTerminal = () => {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.fillStyle = activeTheme === 'retro' ? '#39ff14' : activeTheme === 'cyberpunk' ? '#ff007f' : '#00b4d8';
+            ctx.fillStyle = '#00b4d8'; // Electric blue
             ctx.font = `${fontSize}px monospace`;
 
             for (let i = 0; i < rainDrops.length; i++) {
@@ -92,7 +90,7 @@ const ContactTerminal = () => {
             window.removeEventListener('resize', handleResize);
             cancelAnimationFrame(animationFrameId);
         };
-    }, [isMatrixMode, activeTheme]);
+    }, [isMatrixMode]);
 
     const playSound = (type: 'type' | 'enter' | 'game_success') => {
         if (isMuted) return;
@@ -118,7 +116,6 @@ const ContactTerminal = () => {
             `OS: Sayan OS v2.4.0 (x86_64)`,
             `Kernel: React 19 / TypeScript compiler`,
             `Shell: browser-synthesizer-sh`,
-            `Active Theme: ${activeTheme.toUpperCase()}`,
             `Unlocked Achievements: ${unlockedAchievements.length} / 7`,
             `Core Techs: Node.js, Next.js, Firebase, Supabase, Tailwind, Gemini`,
             `Contact: sayanbnk2008@gmail.com`
@@ -213,7 +210,6 @@ const ContactTerminal = () => {
   instagram    Social channel link
   
 System customizers:
-  theme [name] Swap layout theme (aero, cyberpunk, retro, ocean)
   matrix       Open matrix digital rain screensaver
   glass [mode] Open 3D Fluid Glass lab (lens, cube, bar)
   beams        Toggle interactive 3D light beams playground
@@ -262,14 +258,7 @@ System customizers:
             newHistory.push({ type: 'output', content: 'Opening interactive 3D light beams playground...' });
             setBeamsOpen(true);
             unlockAchievement('hacker');
-        } else if (mainCmd === 'theme') {
-            const targetTheme = parts[1] as ActiveTheme;
-            if (['aero', 'cyberpunk', 'retro', 'ocean'].includes(targetTheme)) {
-                setTheme(targetTheme);
-                newHistory.push({ type: 'output', content: `Theme changed successfully to ${targetTheme.toUpperCase()}.` });
-            } else {
-                newHistory.push({ type: 'output', content: 'Invalid theme slug. Choose: aero, cyberpunk, retro, ocean.' });
-            }
+
         } else if (trimmedCmd !== '') {
             newHistory.push({ type: 'output', content: `bash: command not found: ${trimmedCmd}. Type "help" for a list of modules.` });
         }
@@ -319,23 +308,14 @@ System customizers:
                 {/* Main terminal frame */}
                 <BorderGlow
                     edgeSensitivity={30}
-                    glowColor={
-                        activeTheme === 'cyberpunk' ? "330 100 50" :
-                        activeTheme === 'retro' ? "120 100 50" :
-                        activeTheme === 'ocean' ? "190 100 42" : "15 66 45"
-                    }
+                    glowColor="190 100 42"
                     backgroundColor="var(--theme-bg-card)"
                     borderRadius={16}
                     glowRadius={40}
                     glowIntensity={1.2}
                     coneSpread={25}
                     animated
-                    colors={
-                        activeTheme === 'cyberpunk' ? ['#ff007f', '#00f0ff', '#050505'] :
-                        activeTheme === 'retro' ? ['#39ff14', '#ffb000', '#050805'] :
-                        activeTheme === 'ocean' ? ['#00b4d8', '#0077b6', '#030306'] :
-                        ['#c25027', '#8b8680', '#1e1d1b']
-                    }
+                    colors={['#00b4d8', '#0077b6', '#030306']}
                     className="w-full"
                 >
                     <motion.div

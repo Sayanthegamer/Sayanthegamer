@@ -1,4 +1,5 @@
 import { useRef, useCallback, useEffect } from 'react';
+import { useIsMobile } from '../hooks/useIsMobile';
 import './BorderGlow.css';
 
 interface BorderGlowProps {
@@ -94,6 +95,7 @@ const BorderGlow = ({
   fillOpacity = 0.5,
 }: BorderGlowProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
   const getCenterOfElement = useCallback((el: HTMLElement) => {
     const { width, height } = el.getBoundingClientRect();
@@ -123,6 +125,7 @@ const BorderGlow = ({
   }, [getCenterOfElement]);
 
   const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
+    if (isMobile) return; // Skip expensive pointer tracking on mobile
     const card = cardRef.current;
     if (!card) return;
 
@@ -138,7 +141,7 @@ const BorderGlow = ({
   }, [getEdgeProximity, getCursorAngle]);
 
   useEffect(() => {
-    if (!animated || !cardRef.current) return;
+    if (!animated || !cardRef.current || isMobile) return; // Skip rAF loops on mobile
     const card = cardRef.current;
     const angleStart = 110;
     const angleEnd = 465;

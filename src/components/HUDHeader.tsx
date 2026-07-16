@@ -1,23 +1,22 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, Volume2, VolumeX, Palette, Menu, X, ChevronDown, CheckCircle2, Lock } from 'lucide-react';
-import { useAchievementStore, achievements, type ActiveTheme } from '../store/useAchievementStore';
+import { Award, Volume2, VolumeX, Menu, X, CheckCircle2, Lock } from 'lucide-react';
+import { useAchievementStore, achievements } from '../store/useAchievementStore';
 import GlassSurface from './GlassSurface';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 
 const HUDHeader = () => {
     const { 
         unlockedAchievements, 
-        activeTheme, 
         isMuted, 
-        setTheme, 
         setMuted, 
         resetAchievements 
     } = useAchievementStore();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isCabinetOpen, setIsCabinetOpen] = useState(false);
-    const [isThemeDropdownOpen, setIsThemeDropdownOpen] = useState(false);
+    const isMobile = useIsMobile();
 
     const menuItems = [
         { name: 'Home', href: '#' },
@@ -26,13 +25,6 @@ const HUDHeader = () => {
         { name: 'Journey', href: '#timeline' },
         { name: 'Projects', href: '#projects' },
         { name: 'CLI Terminal', href: '#contact-terminal' },
-    ];
-
-    const themes: { id: ActiveTheme; name: string; color: string }[] = [
-        { id: 'aero', name: 'Aero Glass', color: 'bg-[#c25027]' },
-        { id: 'cyberpunk', name: 'Cyberpunk', color: 'bg-[#ff007f]' },
-        { id: 'retro', name: 'Retro Phosphor', color: 'bg-[#39ff14]' },
-        { id: 'ocean', name: 'Deep Ocean', color: 'bg-[#00b4d8]' },
     ];
 
     const totalAchievements = Object.keys(achievements).length;
@@ -52,6 +44,66 @@ const HUDHeader = () => {
         <>
             {/* Main HUD Nav bar */}
             <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl">
+                {/* Navbar wrapper: GlassSurface on desktop, lightweight div on mobile */}
+                {isMobile ? (
+                <div
+                    className="w-full h-[62px] rounded-full bg-[rgba(0,0,0,0.7)] border border-[var(--theme-border)] shadow-2xl flex items-center justify-center"
+                    style={{ overflow: 'visible' }}
+                >
+                    <div className="w-full px-4 flex items-center justify-between relative bg-transparent">
+                        {/* Brand / Logo */}
+                        <a href="#" className="font-bold font-serif text-lg tracking-wider text-[var(--theme-text-header)] flex items-center gap-2">
+                            SAYAN<span className="text-[var(--theme-accent)]">.</span>
+                        </a>
+
+                        {/* Desktop Navigation Links */}
+                        <div className="hidden md:flex items-center gap-6">
+                            {menuItems.map((item) => (
+                                <a 
+                                    key={item.name} 
+                                    href={item.href} 
+                                    onClick={playClick}
+                                    className="text-sm font-medium tracking-wide text-[var(--theme-text)] hover:text-[var(--theme-text-header)] transition-colors py-1"
+                                >
+                                    {item.name}
+                                </a>
+                            ))}
+                        </div>
+
+                        {/* Interactive Control Widgets */}
+                        <div className="flex items-center gap-3">
+                            {/* Audio Toggle */}
+                            <button 
+                                onClick={() => { setMuted(!isMuted); playClick(); }}
+                                aria-label={isMuted ? "Unmute sound effects" : "Mute sound effects"}
+                                className="w-10 h-10 rounded-full flex items-center justify-center border border-[var(--theme-border)] text-[var(--theme-text)] hover:border-[var(--theme-accent)] transition-all bg-transparent hover:scale-105"
+                            >
+                                {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                            </button>
+
+
+
+                            {/* Achievement Tracker Widget */}
+                            <button 
+                                onClick={() => { setIsCabinetOpen(true); playClick(); }}
+                                className="h-10 px-4 rounded-full flex items-center gap-2 border border-[var(--theme-border)] text-[var(--theme-text-header)] bg-[rgba(255,255,255,0.02)] hover:border-[var(--theme-accent)] transition-all hover:scale-105 font-mono text-xs"
+                            >
+                                <Award size={16} className="text-[var(--theme-accent)]" />
+                                <span>{unlockedCount}/{totalAchievements}</span>
+                            </button>
+
+                            {/* Mobile Menu Toggle */}
+                            <button 
+                                onClick={() => { setIsMenuOpen(!isMenuOpen); playClick(); }}
+                                aria-label="Toggle navigation menu"
+                                className="w-10 h-10 rounded-full flex md:hidden items-center justify-center border border-[var(--theme-border)] text-[var(--theme-text)] hover:border-[var(--theme-accent)] transition-all bg-transparent"
+                            >
+                                {isMenuOpen ? <X size={16} /> : <Menu size={16} />}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                ) : (
                 <GlassSurface 
                     borderRadius={9999} 
                     backgroundOpacity={0.02} 
@@ -100,43 +152,7 @@ const HUDHeader = () => {
                                 {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
                             </button>
 
-                            {/* Theme Dropdown Toggle */}
-                            <div className="relative">
-                                <button 
-                                    onClick={() => { setIsThemeDropdownOpen(!isThemeDropdownOpen); playClick(); }}
-                                    aria-label="Change visual theme"
-                                    className="h-10 px-3 rounded-full flex items-center gap-2 border border-[var(--theme-border)] text-[var(--theme-text)] hover:border-[var(--theme-accent)] transition-all bg-transparent hover:scale-105"
-                                >
-                                    <Palette size={16} />
-                                    <ChevronDown size={14} className={`transition-transform duration-300 ${isThemeDropdownOpen ? 'rotate-180' : ''}`} />
-                                </button>
 
-                                <AnimatePresence>
-                                    {isThemeDropdownOpen && (
-                                        <motion.div 
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: 10 }}
-                                            className="absolute right-0 mt-2 w-44 rounded-2xl glass-card bg-[var(--theme-bg-card)] border border-[var(--theme-border)] p-2 shadow-2xl overflow-hidden z-50 font-mono text-xs"
-                                        >
-                                            {themes.map((t) => (
-                                                <button
-                                                    key={t.id}
-                                                    onClick={() => {
-                                                        setTheme(t.id);
-                                                        setIsThemeDropdownOpen(false);
-                                                        playClick();
-                                                    }}
-                                                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-left hover:bg-[rgba(255,255,255,0.04)] transition-all ${activeTheme === t.id ? 'text-[var(--theme-accent)]' : 'text-[var(--theme-text)]'}`}
-                                                    >
-                                                    <span>{t.name}</span>
-                                                    <span className={`w-2.5 h-2.5 rounded-full ${t.color}`} />
-                                                </button>
-                                            ))}
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
 
                             {/* Achievement Tracker Widget */}
                             <button 
@@ -158,6 +174,7 @@ const HUDHeader = () => {
                         </div>
                     </div>
                 </GlassSurface>
+                )}
 
                 {/* Mobile Navigation Dropdown */}
                 <AnimatePresence>

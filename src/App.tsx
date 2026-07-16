@@ -5,7 +5,7 @@ import Hero from './components/Hero';
 import Hobbies from './components/Hobbies';
 import Projects from './components/Projects';
 import Timeline from './components/Timeline';
-import TechStack from './components/TechStack';
+import Capabilities from './components/Capabilities';
 import ContactTerminal from './components/ContactTerminal';
 import Footer from './components/Footer';
 import Background from './components/Background';
@@ -14,11 +14,10 @@ import Beams from './components/Beams';
 
 import { useAchievementStore, type GlassMode } from './store/useAchievementStore';
 import AchievementToast from './components/AchievementToast';
-import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/react";
+
 
 function App() {
-  const { isGlassOpen, glassMode, setGlassOpen, isMuted, isBeamsOpen, setBeamsOpen, activeTheme } = useAchievementStore();
+  const { isGlassOpen, glassMode, setGlassOpen, isMuted, isBeamsOpen, setBeamsOpen } = useAchievementStore();
 
   const playClick = () => {
     if (!isMuted) {
@@ -33,7 +32,7 @@ function App() {
   return (
     <>
       <AchievementToast />
-      <div className="min-h-screen bg-transparent text-[var(--theme-text)] selection:bg-[rgba(var(--theme-accent-rgb),0.3)] transition-colors duration-400">
+      <div className="min-h-[100dvh] bg-transparent text-[var(--theme-text)] selection:bg-[rgba(var(--theme-accent-rgb),0.3)]">
         <Background />
         
         {/* Floating HUD controls */}
@@ -41,7 +40,7 @@ function App() {
 
         <main className="relative z-10 flex flex-col gap-20 md:gap-32 pb-20 pt-16">
           <Hero />
-          <TechStack />
+          <Capabilities />
           <Hobbies />
           <Timeline />
           <Projects />
@@ -49,9 +48,6 @@ function App() {
         </main>
 
         <Footer />
-        <Analytics />
-        <SpeedInsights />
-
         {/* 3D Fluid Glass Easter Egg Modal */}
         <AnimatePresence>
           {isGlassOpen && (
@@ -160,15 +156,7 @@ function App() {
                 {/* Canvas Render viewport */}
                 <div className="flex-1 w-full h-full relative bg-black/10">
                   <Beams 
-                    lightColor={
-                      activeTheme === 'cyberpunk'
-                        ? '#ff007f'
-                        : activeTheme === 'retro'
-                        ? '#39ff14'
-                        : activeTheme === 'ocean'
-                        ? '#00b4d8'
-                        : '#c25027'
-                    }
+                    lightColor="#c25027"
                     bgColor="#050505"
                     beamWidth={2.2}
                     beamHeight={25}

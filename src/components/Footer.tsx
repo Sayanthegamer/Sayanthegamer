@@ -6,24 +6,24 @@ const Footer = () => {
     const unlockAchievement = useAchievementStore((state) => state.unlockAchievement);
 
     return (
-        <footer className="py-8 border-t border-slate-800 bg-slate-900 text-center">
+        <footer className="py-12 border-t border-[var(--theme-border)] relative z-20 bg-[var(--theme-bg)] text-center">
             <motion.div
                 onViewportEnter={() => unlockAchievement('explorer')}
-                className="flex justify-center gap-6 mb-4"
+                className="flex justify-center gap-8 mb-6"
             >
-                <a href="https://github.com/Sayanthegamer" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-primary transition-colors">
-                    <Github size={24} />
+                <a href="https://github.com/Sayanthegamer" target="_blank" rel="noopener noreferrer" className="text-[var(--theme-text)]/60 hover:text-[var(--theme-text-header)] transition-colors">
+                    <Github size={20} />
                 </a>
 
-                <a href="https://www.instagram.com/nxt_sayan0/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-pink-500 transition-colors">
-                    <Instagram size={24} />
+                <a href="https://www.instagram.com/nxt_sayan0/" target="_blank" rel="noopener noreferrer" className="text-[var(--theme-text)]/60 hover:text-[var(--theme-text-header)] transition-colors">
+                    <Instagram size={20} />
                 </a>
 
-                <a href="mailto:sayanbnk2008@gmail.com" className="text-slate-400 hover:text-primary transition-colors">
-                    <Mail size={24} />
+                <a href="mailto:sayanbnk2008@gmail.com" className="text-[var(--theme-text)]/60 hover:text-[var(--theme-text-header)] transition-colors">
+                    <Mail size={20} />
                 </a>
             </motion.div>
-            <p className="text-slate-500 text-sm">
+            <p className="text-[var(--theme-text)]/40 text-xs font-mono tracking-widest uppercase">
                 &copy; {new Date().getFullYear()} Sayan. All rights reserved.
             </p>
         </footer>

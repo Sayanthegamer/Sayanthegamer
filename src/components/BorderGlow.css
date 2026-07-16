@@ -139,3 +139,16 @@
   overflow: auto;
   z-index: 1;
 }
+
+/* Mobile: disable all expensive glow layers */
+@media (max-width: 768px) {
+  .border-glow-card::before,
+  .border-glow-card::after,
+  .border-glow-card > .edge-light {
+    display: none !important;
+  }
+
+  .border-glow-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  }
+}
