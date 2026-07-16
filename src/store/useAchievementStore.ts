@@ -65,12 +65,14 @@ interface AchievementStore {
     isGlassOpen: boolean;
     glassMode: GlassMode;
     isBeamsOpen: boolean;
+    activeTheme: string;
     unlockAchievement: (id: AchievementId) => void;
     setMuted: (muted: boolean) => void;
     toggleTechFilter: (tech: string) => void;
     clearTechFilter: () => void;
     setGlassOpen: (open: boolean, mode?: GlassMode) => void;
     setBeamsOpen: (open: boolean) => void;
+    setTheme: (theme: string) => void;
     resetAchievements: () => void;
     clearToast: () => void;
 }
@@ -85,6 +87,7 @@ export const useAchievementStore = create<AchievementStore>()(
             isGlassOpen: false,
             glassMode: 'lens',
             isBeamsOpen: false,
+            activeTheme: 'aero',
             unlockAchievement: (id: AchievementId) => {
                 const { unlockedAchievements, isMuted } = get();
                 if (!unlockedAchievements.includes(id)) {
@@ -134,6 +137,9 @@ export const useAchievementStore = create<AchievementStore>()(
             setBeamsOpen: (open: boolean) => {
                 set({ isBeamsOpen: open });
             },
+            setTheme: (theme: string) => {
+                set({ activeTheme: theme });
+            },
             resetAchievements: () => {
                 set({ unlockedAchievements: [], selectedTechFilter: [], isGlassOpen: false, isBeamsOpen: false });
                 console.log('Achievements reset');
@@ -146,7 +152,8 @@ export const useAchievementStore = create<AchievementStore>()(
             name: 'sayan-achievements-v2', // localStorage key
             partialize: (state) => ({ 
                 unlockedAchievements: state.unlockedAchievements,
-                isMuted: state.isMuted
+                isMuted: state.isMuted,
+                activeTheme: state.activeTheme
             }),
         }
     )
